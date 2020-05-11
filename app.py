@@ -75,7 +75,7 @@ def get_meetup_events(group_list):
         for event in data:
         # Append individual events to list
             all_events.append(event)
-
+        
     return all_events
 
 
@@ -149,7 +149,7 @@ def get_eventbrite_events(group_list):
     # the current time minus days in config
 
     start_date = (current_time - datetime.timedelta(int(days_in_the_past))).strftime('%Y-%m-%dT%H:%M:%SZ')
-
+    
     for group_id in group_ids:
  
         # Eventbrite paginates results with 50 per page. If we do not include a start date then organizers with over
@@ -162,11 +162,13 @@ def get_eventbrite_events(group_list):
         if r.status_code != 200:
             raise Exception('Could not connect to Eventbrite API at {}.  Status Code: {}'.format(url, r.status_code))
         data = json.loads(r.text)
-
+        
         if data.get('events'):
             events_list = data.get('events')
             events += events_list
-
+        
+        
+    
     return events
 
 
@@ -186,7 +188,6 @@ def get_eventbrite_venues(events_list):
                 raise Exception('Could not connect to Eventbrite API at {}.  Status Code: {}'.format(url, r.status_code))
             data = json.loads(r.text)
             venues.append(data)
-
     return venues
 
 
@@ -316,6 +317,7 @@ def get_dates():
 
         # Sort events by time
         events.sort(key=lambda s: s['time'])
+        
         return jsonify(events)
 
 
