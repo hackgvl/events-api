@@ -23,6 +23,21 @@ app.config['SECRET_KEY'] = config.get('flask', 'secret_key')
 fileConfig('logging_config.ini')
 logger = logging.getLogger()
 
+# Method used for parsing dates through  out functions
+def parse_date(d):
+    if isinstance(d, datetime.datetime):
+        parsed_date = d
+    elif isinstance(d, str):
+        try:
+            eastern = pytz.timezone('US/Eastern')
+            date_no_tz = parse(d)
+            parsed_date = eastern.localize(date_no_tz, is_dst=None)
+        except ValueError:
+            return 'Start date {} is in unknown format. '.format(d)
+    else:
+        return 'Start date {} is in unknown format. '.format(d)
+    return parsed_date
+
 # Queries openupstate API for list of groups. Returns dictionary with each source as key (e.g. 'Meetup', 'Eventbrite')
 def get_group_lists():
     url = 'https://data.openupstate.org/rest/organizations?org_status=active&_format=json'
@@ -126,8 +141,13 @@ def get_eventbrite_events(group_list):
     token = config.get('eventbrite', 'token')
     events = []
 
+    # Number of days to allow for past events
+    start_days = config.get('past_events', 'past_days')
+
     # the current date time in ISO8601 format
-    current_time = datetime.datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%SZ')
+    current_time = (datetime.datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%SZ')
+    # the current time minus days in config
+    start_date = current_time - datetime.timedelta(start_days)
 
     for group_id in group_ids:
  
@@ -135,7 +155,7 @@ def get_eventbrite_events(group_list):
         # 50 results will only return the oldest results unless we use a continuation token to explicitly page
         # sorting ascending on the start date will also help ensure the current events aren't lost on pagination if
         # an organizer happens to have over 50 future events
-        url = 'https://www.eventbriteapi.com/v3/organizers/{}/events/?order_by=start_asc&start_date.range_start={}'.format(group_id, current_time)
+        url = 'https://www.eventbriteapi.com/v3/organizers/{}/events/?order_by=start_asc&start_date.range_start={}'.format(group_id, start_date)
 
         r = requests.get(url, headers={"Authorization": "Bearer {}".format(token)}, verify=True)
         if r.status_code != 200:
@@ -234,25 +254,29 @@ def parse_date(d):
 
 
 # Takes list of events and returns list of events occuring in specified date range
-def filter_events_by_date(events, start_date_str=datetime.datetime.now(datetime.timezone.utc), end_date_str=None):
+    def filter_events_by_date(events, start_date_str=datetime.datetime.now(datetime.timezone.utc), end_date_str=None):
+        
+        # number of days specified in config
+        days = config.get('past_events', 'past_days')
 
-    if start_date_str:
-        start_date = parse_date(start_date_str) - datetime.timedelta(days=1)
-    else:
-        start_date = None
-    end_date = parse_date(end_date_str) if end_date_str else None
+        if start_date_str:
+            start_date = parse_date(start_date_str) - datetime.timedelta(days = 3)
+        else:
+            start_date = None
+        end_date = parse_date(end_date_str) if end_date_str else None
 
-    if isinstance(start_date, str) or isinstance(end_date, str):
-        return '{}{}'.format(start_date, end_date).replace('None', '')
+        if isinstance(start_date, str) or isinstance(end_date, str):
+            return '{}{}'.format(start_date, end_date).replace('None', '')
 
-    if start_date and end_date:
-        return [event for event in events if start_date <= parse(event['time']) <= end_date]
-    elif start_date:
-        return [event for event in events if parse(event['time']) >= start_date]
-    elif end_date:
-        return [event for event in events if parse(event['time']) <= end_date]
-    else:
-        return events
+        if start_date and end_date:
+            return [event for event in events if start_date <= parse(event['time']) <= end_date]
+        elif start_date:
+            return [event for event in events if parse(event['time']) >= start_date]
+        elif end_date:
+            return [event for event in events if parse(event['time']) <= end_date]
+        else:
+            
+            return events
 
 
 # Takes list of events and string of tags to return list of events with specified tags
@@ -281,6 +305,7 @@ def normalize_eventbrite_status_codes(status):
 def get_dates():
 
     start_date = request.args.get('start_date', datetime.datetime.now(datetime.timezone.utc))
+   
     end_date = request.args.get('end_date', None)
     tags = request.args.get('tags', None)
     with open('all_meetings.json') as json_data:
@@ -290,7 +315,7 @@ def get_dates():
 
         # Sort events by time
         events.sort(key=lambda s: s['time'])
-
+   
         return jsonify(events)
 
 
