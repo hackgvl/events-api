@@ -142,12 +142,13 @@ def get_eventbrite_events(group_list):
     events = []
 
     # Number of days to allow for past events
-    start_days = config.get('past_events', 'past_days')
+    days_in_the_past = config.get('past_events', 'past_days')
 
     # the current date time in ISO8601 format
-    current_time = (datetime.datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%SZ')
+    current_time = (datetime.datetime.utcnow())
     # the current time minus days in config
-    start_date = current_time - datetime.timedelta(start_days)
+
+    start_date = (current_time - datetime.timedelta(int(days_in_the_past))).strftime('%Y-%m-%dT%H:%M:%SZ')
 
     for group_id in group_ids:
  
@@ -257,10 +258,10 @@ def parse_date(d):
     def filter_events_by_date(events, start_date_str=datetime.datetime.now(datetime.timezone.utc), end_date_str=None):
         
         # number of days specified in config
-        days = config.get('past_events', 'past_days')
+        days_in_the_past = config.get('past_events', 'past_days')
 
         if start_date_str:
-            start_date = parse_date(start_date_str) - datetime.timedelta(days = 3)
+            start_date = parse_date(start_date_str) - datetime.timedelta(days_in_the_past)
         else:
             start_date = None
         end_date = parse_date(end_date_str) if end_date_str else None
@@ -315,7 +316,6 @@ def get_dates():
 
         # Sort events by time
         events.sort(key=lambda s: s['time'])
-   
         return jsonify(events)
 
 
