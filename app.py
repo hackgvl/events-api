@@ -142,7 +142,7 @@ def get_eventbrite_events(group_list):
     events = []
 
     # Number of days to allow for past events
-    days_in_the_past = config.get('past_events', 'past_days')
+    days_in_the_past = config.get('past_events', 'days_in_the_past')
 
     # the current date time in ISO8601 format
     current_time = (datetime.datetime.utcnow())
@@ -276,7 +276,7 @@ def parse_date(d):
     def filter_events_by_date(events, start_date_str=datetime.datetime.now(datetime.timezone.utc), end_date_str=None):
         
         # number of days specified in config
-        days_in_the_past = config.get('past_events', 'past_days')
+        days_in_the_past = config.get('past_events', 'days_in_the_past')
 
         if start_date_str:
             start_date = parse_date(start_date_str) - datetime.timedelta(days_in_the_past)
