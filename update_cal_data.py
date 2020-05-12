@@ -18,7 +18,6 @@ def refresh_all_meetings():
         )
     with open('all_meetings.json', 'w') as outfile:
         json.dump(events, outfile)
-    
     return events
 
 

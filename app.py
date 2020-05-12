@@ -212,31 +212,48 @@ def format_eventbrite_events(events_list, venues_list, group_list):
                 'lon': venue_address.get('longitude')
             }
         venues[venue_id] = venue_dict
+       
 
     for event in events_list:
-        if type(event.get('venue_id')) == str:  # If venue id error
+        if type(event.get('venue_id')) == str or event.get('venue_id') is None:  # If venue id error
             group_item = [i for i in group_list if i['field_events_api_key'] == event.get('organizer_id')][0]
             group_name = group_item.get('title')
             tags = group_item.get('field_org_tags')
             uuid = group_item.get('uuid')
             nid = group_item.get('nid')
-            event_dict = {
-                'event_name': event.get('name').get('text'),
-                'group_name': group_name,
-                'venue': venues[event.get('venue_id')],
-                'url': event.get('url'),
-                'time': event.get('start').get("utc"),
-                'tags': tags,
-                'rsvp_count': None,
-                'created_at': event.get('created'),
-                'description': event.get('description').get('text'),
-                'uuid': uuid,
-                'nid': nid,
-                'data_as_of': datetime.datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%SZ'),
-                'status': normalize_eventbrite_status_codes(event.get('status'))
-            }
+            if type(event.get('venue_id')) == str:
+                event_dict = {
+                    'event_name': event.get('name').get('text'),
+                    'group_name': group_name,
+                    'venue': venues[event.get('venue_id')],
+                    'url': event.get('url'),
+                    'time': event.get('start').get("utc"),
+                    'tags': tags,
+                    'rsvp_count': None,
+                    'created_at': event.get('created'),
+                    'description': event.get('description').get('text'),
+                    'uuid': uuid,
+                    'nid': nid,
+                    'data_as_of': datetime.datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%SZ'),
+                    'status': normalize_eventbrite_status_codes(event.get('status'))
+                }
+            elif event.get('venue_id') == None: # if event venue is None, it is online/virtual
+                event_dict = {
+                    'event_name': event.get('name').get('text'),
+                    'group_name': group_name,
+                    'venue': event.get('venue_id'),
+                    'url': event.get('url'),
+                    'time': event.get('start').get("utc"),
+                    'tags': tags,
+                    'rsvp_count': None,
+                    'created_at': event.get('created'),
+                    'description': event.get('description').get('text'),
+                    'uuid': uuid,
+                    'nid': nid,
+                    'data_as_of': datetime.datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%SZ'),
+                    'status': normalize_eventbrite_status_codes(event.get('status'))
+                }
             events.append(event_dict)
-
     return events
 
 
@@ -317,7 +334,6 @@ def get_dates():
 
         # Sort events by time
         events.sort(key=lambda s: s['time'])
-        
         return jsonify(events)
 
 
