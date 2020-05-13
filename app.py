@@ -277,7 +277,6 @@ def filter_events_by_date(events, start_date_str=datetime.datetime.now(datetime.
     
     # days_in_the_past = config.get('past_events', 'days_in_the_past')
     # current_time = (datetime.datetime.utcnow())
-
     # if start_date_str:
     #     start_date = (current_time - datetime.timedelta(int(days_in_the_past))).strftime('%Y-%m-%dT%H:%M:%SZ')
         
@@ -338,7 +337,7 @@ def get_dates():
         events_json = json.load(json_data)
         events_date_filter = filter_events_by_date(start_date_str=start_date, end_date_str=end_date, events=events_json)
         events = filter_events_by_tag(events_date_filter, tags)
-        
+
         # Sort events by time
         events_json.sort(key=lambda s: s['time'])
         return jsonify(events)
