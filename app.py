@@ -61,6 +61,7 @@ def get_meetup_events(group_list):
     # Create empty list to be returned by the function
     all_events = []
 
+    ## Meetup's API returns paginated results. These results have been limited to the first 50 events.
     max_days_in_the_past = config.get('past_events', 'max_days_in_the_past')
     current_time = datetime.datetime.utcnow()
     no_earlier_than = (current_time - datetime.timedelta(int(max_days_in_the_past))).strftime('%Y-%m-%dT%H:%M:%S.000')

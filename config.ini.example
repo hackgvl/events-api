@@ -9,6 +9,6 @@ username = user
 update_cal_location = /home/user/upstate_tech_cal_service/update_cal_data.py
 
 [past_events]
-max_days_in_the_past = 30
+max_days_in_the_past = 5
 default_days_in_the_past = 3
 
