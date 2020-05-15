@@ -65,14 +65,13 @@ def get_meetup_events(group_list):
     max_days_in_the_past = config.get('past_events', 'max_days_in_the_past')
     current_time = datetime.datetime.utcnow()
     no_earlier_than = (current_time - datetime.timedelta(int(max_days_in_the_past))).strftime('%Y-%m-%dT%H:%M:%S.000')
-    print('date', no_earlier_than)
+    
 
     for api in group_apis:
         # Create url from group name found in Organization API's field_event_api_key
         url = 'https://api.meetup.com/{}/events?&sign=true&photo-host=public&no_earlier_than={}&status=upcoming,cancelled,past&page=50'.format(api, no_earlier_than)
 
         r = requests.get(url)
-        # print(r.json())
         if r.status_code != 200:
             raise Exception('Could not connect to Meetup API at {}.  Status Code: {}'.format(url, r.status_code))
 
