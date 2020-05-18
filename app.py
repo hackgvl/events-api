@@ -61,7 +61,6 @@ def get_meetup_events(group_list):
     # Create empty list to be returned by the function
     all_events = []
 
-    ## Meetup's API returns paginated results. These results have been limited to the first 50 events.
     max_days_in_the_past = config.get('past_events', 'max_days_in_the_past')
     current_time = datetime.datetime.utcnow()
     no_earlier_than = (current_time - datetime.timedelta(int(max_days_in_the_past))).strftime('%Y-%m-%dT%H:%M:%S.000')
@@ -70,6 +69,7 @@ def get_meetup_events(group_list):
     for api in group_apis:
         # Create url from group name found in Organization API's field_event_api_key
         url = 'https://api.meetup.com/{}/events?&sign=true&photo-host=public&no_earlier_than={}&status=upcoming,cancelled,past&page=50'.format(api, no_earlier_than)
+        ## Meetup's API returns paginated results. These results have been limited to the first 50 events.
 
         r = requests.get(url)
         if r.status_code != 200:
