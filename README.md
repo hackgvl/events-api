@@ -1,7 +1,8 @@
 ## Greenville Tech Meetup Events / Calendar API Service
 
-This application provides an endpoint to return event data for all [meetup groups](https://data.openupstate.org/organizations) listed in the [meetups API](https://github.com/codeforgreenville/OpenData/issues/17) if they host their meetings on [meetup.com](https://github.com/codeforgreenville/upstate_tech_cal_service/issues/2)
-or [eventbrite.com](https://github.com/codeforgreenville/upstate_tech_cal_service/issues/4).
+This application provides an endpoint to return event data for all [meetup groups](https://data.openupstate.org/organizations) listed in the [meetups API](https://github.com/codeforgreenville/OpenData/issues/17) if they host meetings on:
+* Meetup.com - [example API call](https://github.com/codeforgreenville/upstate_tech_cal_service/issues/3#issuecomment-802219986)
+* Eventbrite.com - [example API call](https://github.com/codeforgreenville/upstate_tech_cal_service/issues/4#issuecomment-802212633)
 
 Meeting services currently not supported: [Facebook](https://github.com/codeforgreenville/upstate_tech_cal_service/issues/5), [Nvite](https://github.com/codeforgreenville/upstate_tech_cal_service/issues/6), [Open Collective](https://github.com/codeforgreenville/upstate_tech_cal_service/issues/2), and [custom websites](https://github.com/codeforgreenville/upstate_tech_cal_service/issues/7).
 
