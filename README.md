@@ -1,6 +1,6 @@
-## Greenville Tech Meetup Events / Calendar API Service
+## Upstate / Greenville, SC Tech Organization Events / Calendar API Service
 
-This application provides an endpoint to return event data for all [organizations](https://data.openupstate.org/organizations) listed in the [organizations API](https://github.com/codeforgreenville/OpenData/issues/17) if they host events on:
+This application provides an endpoint to return event data for all [organizations](https://data.openupstate.org/organizations) listed in the [organizations API](https://github.com/codeforgreenville/OpenData/blob/master/ORGANIZATIONS_API.md) if they host events on:
 * Meetup.com - [example API call](https://github.com/codeforgreenville/upstate_tech_cal_service/issues/3#issuecomment-802219986)
 * Eventbrite.com - [example API call](https://github.com/codeforgreenville/upstate_tech_cal_service/issues/4#issuecomment-802212633)
 
@@ -52,4 +52,4 @@ The format of the JSON that returns is:
 Note:
 * Kudos to @Nunie123 for the initial development
 * All timestamps are in UTC.  
-* Some of the description fields include HTML markup from the event services.  This application does not verify that there is nothing malicious in the included markup.
+* The event description fields may include HTML markup.  This application does not sanitize those fields and it's unclear if the upstream source should be trusted, so sanitize any output to avoid malicious XSS.
