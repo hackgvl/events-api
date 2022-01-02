@@ -24,7 +24,7 @@
 3. Create a local config.ini file, if one does not exist.
    1. `cp config.ini.example config.ini && nano config.ini`
    1. Fill in the placeholder values in your config.ini with the real values for the following, `nano config.ini`
-      1. Register your own [Eventbrite token](https://www.eventbrite.com/support/articles/en_US/How_To/how-to-locate-your-eventbrite-api-user-key?lg=en_US)
+      1. Register your own [Eventbrite token](https://www.eventbrite.com/platform/api#/introduction/authentication)
        1. Flask secret can be any long random string
        1. (No longer needed) Version 3 of the Meetup.com API requires an Oauth Key. However, as of Oct 2019, we're using only public GET API endpoints that require not authentication. It's not necessary to register a Meetup.com API key unless/until the app needs access to an authenticated endpoint, at which point the key could be added to the config file
 4. Create a local logging_config.ini file
