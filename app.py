@@ -1,3 +1,4 @@
+import pdb
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 import simplejson as json
@@ -50,6 +51,7 @@ def get_group_lists():
     groups_by_source = {}
     for source in all_sources:
         groups_by_source[source] = [i for i in data if i['field_event_service'] == source]
+    
     return groups_by_source
 
 
@@ -88,6 +90,7 @@ def get_meetup_events(group_list):
 
 # Takes list of events from Meetup and returns formatted list of events
 def format_meetup_events(events_raw, group_list):
+    
     events = []
     for event in events_raw:
         venue_dict = event.get('venue')
@@ -219,7 +222,6 @@ def format_eventbrite_events(events_list, venues_list, group_list):
                 'lon': venue_address.get('longitude')
             }
         venues[venue_id] = venue_dict
-       
 
     for event in events_list:
         if type(event.get('venue_id')) == str or event.get('venue_id') is None:  # If venue id error
@@ -228,6 +230,7 @@ def format_eventbrite_events(events_list, venues_list, group_list):
             tags = group_item.get('field_org_tags')
             uuid = group_item.get('uuid')
             nid = group_item.get('nid')
+            import pdb; pdb.set_trace()
             if type(event.get('venue_id')) == str:
                 event_dict = {
                     'event_name': event.get('name').get('text'),

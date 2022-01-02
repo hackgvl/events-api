@@ -10,6 +10,7 @@ def refresh_all_meetings():
     meetup_events = app.get_meetup_events(group_lists['Meetup.com'])
     eventbrite_events = app.get_eventbrite_events(group_lists['Eventbrite.com'])
     eventbrite_venues = app.get_eventbrite_venues(eventbrite_events)
+    
     events = (
         app.format_meetup_events(meetup_events, group_lists['Meetup.com'])
         + app.format_eventbrite_events(events_list=eventbrite_events,
