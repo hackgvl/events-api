@@ -1,8 +1,7 @@
 ##!/home/ubuntu/miniconda2/envs/cal_service/bin/python
 # encoding: utf-8
-import app
+import functions as app
 import simplejson as json
-
 
 # Gets lists of meetings, concatenates meeting lists from all sources, then saves json locally.
 def refresh_all_meetings():
