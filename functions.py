@@ -1,3 +1,4 @@
+import pdb
 import requests
 from flask import Flask, jsonify, request
 import simplejson as json
@@ -11,8 +12,10 @@ config_file = 'config.ini'
 config.read(config_file)
 
 
-# Queries openupstate API for list of groups. Returns dictionary with each source as key (e.g. 'Meetup', 'Eventbrite')
 def get_group_lists():
+    # Queries openupstate API for list of sources , 
+    # organizes them into a set, removing duplicates. 
+    # Returns dictionary of groups with each group source as keys (e.g. 'Meetup', 'Eventbrite', 'Facebook')
     url = 'https://data.openupstate.org/rest/organizations?org_status=active&_format=json'
     r = requests.get(url)
     if r.status_code != 200:
@@ -23,12 +26,10 @@ def get_group_lists():
     groups_by_source = {}
     for source in all_sources:
         groups_by_source[source] = [i for i in data if i['field_event_service'] == source]
-    
     return groups_by_source
 
 # Takes list of groups and makes API call to Meetup.com to get event details. Returns list.
 def get_meetup_events(group_list):
-
     # Extract field_event_api_key from each item in group_list
     group_apis = [i['field_events_api_key'] for i in group_list]
     # Create empty list to be returned by the function
@@ -58,9 +59,9 @@ def get_meetup_events(group_list):
         
     return all_events
 
-# Takes list of events from Meetup and returns formatted list of events
 def format_meetup_events(events_raw, group_list):
-    
+    # Takes list of events from Meetup and returns formatted list of events
+
     events = []
     for event in events_raw:
         venue_dict = event.get('venue')
@@ -141,13 +142,9 @@ def get_eventbrite_events(group_list):
         if r.status_code != 200:
             raise Exception('Could not connect to Eventbrite API at {}.  Status Code: {}'.format(url, r.status_code))
         data = json.loads(r.text)
-        
         if data.get('events'):
             events_list = data.get('events')
             events += events_list
-        
-        
-    
     return events
 
 
@@ -199,7 +196,6 @@ def format_eventbrite_events(events_list, venues_list, group_list):
             tags = group_item.get('field_org_tags')
             uuid = group_item.get('uuid')
             nid = group_item.get('nid')
-            import pdb; pdb.set_trace()
             if type(event.get('venue_id')) == str:
                 event_dict = {
                     'event_name': event.get('name').get('text'),

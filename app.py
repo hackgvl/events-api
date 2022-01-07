@@ -41,13 +41,6 @@ def parse_date(d):
 
 # Takes list of events and returns list of events occuring in specified date range
 def filter_events_by_date(events, start_date_str=datetime.datetime.now(datetime.timezone.utc), end_date_str=None):
-    
-    # days_in_the_past = config.get('past_events', 'days_in_the_past')
-    # current_time = (datetime.datetime.utcnow())
-    # if start_date_str:
-    #     start_date = (current_time - datetime.timedelta(int(days_in_the_past))).strftime('%Y-%m-%dT%H:%M:%SZ')
-    # else:
-    #     start_date = None
     start_date = parse_date(start_date_str) if start_date_str else None
     end_date = parse_date(end_date_str) if end_date_str else None
 
@@ -84,8 +77,10 @@ def normalize_eventbrite_status_codes(status):
     }
     return status_dict.get(status)
 
-@app.route('/api/gtc', methods=['GET', 'POST'])
 def get_dates():
+    # retrieves date parameters if given
+    # if no date parameters have been given,
+    # use current time - default days in the past (see config) for start_date
     if request.args.get('start_date'):
         start_date = request.args.get('start_date', datetime.datetime.now(datetime.timezone.utc))
     else: 
@@ -94,6 +89,12 @@ def get_dates():
         start_date = (current_time - datetime.timedelta(int(default_days_in_the_past))).strftime('%Y-%m-%d')
 
     end_date = request.args.get('end_date', None)
+    return start_date, end_date
+    
+
+@app.route('/api/gtc', methods=['GET', 'POST'])
+def get_meetings():
+    start_date, end_date = get_dates()
     tags = request.args.get('tags', None)
     with open('all_meetings.json') as json_data:
         events_json = json.load(json_data)
