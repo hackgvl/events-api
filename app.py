@@ -17,6 +17,8 @@ from logging.config import fileConfig
 
 # instantiate flask app
 app = Flask(__name__)
+# JSONIFY throws an error, as Flask tries to access a depecrated method, `request.is_xhr`
+# Update Flask version to solve this more permanently
 app.config['JSONIFY_PRETTYPRINT_REGULAR'] = False
 CORS(app)
 app.config['SECRET_KEY'] = config.get('flask', 'secret_key')
@@ -80,7 +82,7 @@ def normalize_eventbrite_status_codes(status):
 def get_dates():
     # retrieves date parameters if given
     # if no date parameters have been given,
-    # use current time - default days in the past (see config) for start_date
+    # will use current time - default days in the past (see config) for start_date
     if request.args.get('start_date'):
         start_date = request.args.get('start_date', datetime.datetime.now(datetime.timezone.utc))
     else: 
@@ -98,13 +100,15 @@ def get_meetings():
     tags = request.args.get('tags', None)
     with open('all_meetings.json') as json_data:
         events_json = json.load(json_data)
-        events_date_filter = filter_events_by_date(start_date_str=start_date, end_date_str=end_date, events=events_json)
-        events = filter_events_by_tag(events_date_filter, tags)
-
+        # can events_date_filter be named events instead?
+        # events_date_filter = filter_events_by_date(start_date_str=start_date, end_date_str=end_date, events=events_json)
+        events = filter_events_by_date(start_date_str=start_date, end_date_str=end_date, events=events_json)
+        events = filter_events_by_tag(events, tags)
         # Sort events by time
         events_json.sort(key=lambda s: s['time'])
+        # return events
         return jsonify(events)
-
+       
 
 if __name__ == '__main__':
     app.run()
