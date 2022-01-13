@@ -100,15 +100,11 @@ def get_meetings():
     tags = request.args.get('tags', None)
     with open('all_meetings.json') as json_data:
         events_json = json.load(json_data)
-        # can events_date_filter be named events instead?
-        # events_date_filter = filter_events_by_date(start_date_str=start_date, end_date_str=end_date, events=events_json)
         events = filter_events_by_date(start_date_str=start_date, end_date_str=end_date, events=events_json)
         events = filter_events_by_tag(events, tags)
         # Sort events by time
         events_json.sort(key=lambda s: s['time'])
-        # return events
         return jsonify(events)
        
-
 if __name__ == '__main__':
     app.run()
