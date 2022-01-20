@@ -1,6 +1,6 @@
 1. Open a Command Prompt / Terminal / Shell, either:
    1. On your local computer / localhost
-   1. Or, if you develop on a remote server then SSH into th remote machine.
+   1. Or, if you develop on a remote server then SSH into the remote machine.
 2. Execute the following commands:
    1. (Optional) For Production or Remote Servers Only
       1. `sudo useradd usernamehere -s /bin/bash && passwd usernamehere`
