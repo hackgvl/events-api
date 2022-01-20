@@ -1,0 +1,25 @@
+.dockerignore
+
+# git, configs and docs
+.git
+.gitignore
+*.example*
+*.md
+
+# temp files
+__pycache__
+logs/
+*.ini
+*.DS_Store
+*.pyc
+.vscode/
+all_meetings.json
+
+# elastic beanstalk
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml
+
+# virtual envs
+/venv
+mypy/*
