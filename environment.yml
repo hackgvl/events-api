@@ -10,3 +10,4 @@ dependencies:
     - python-crontab==2.2.6
     - pytz==2017.3
     - flask-cors==3.0.3
+    - flask-restful==0.3.9
