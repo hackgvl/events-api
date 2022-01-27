@@ -17,26 +17,24 @@ from logging.config import fileConfig
 
 # instantiate flask app
 app = Flask(__name__)
-app.debug = True
-# JSONIFY throws an error, as Flask tries to access a depecrated method, `request.is_xhr`
-# Update Flask version to solve this more permanently
-app.config['JSONIFY_PRETTYPRINT_REGULAR'] = False
 CORS(app)
 app.config['SECRET_KEY'] = config.get('flask', 'secret_key')
 
 fileConfig('logging_config.ini')
 logger = logging.getLogger()
 
-
 api = Api(app)
 
+# representation decorator tells the app to route request to this method
+# when the request Content-Type is application/json
 @api.representation('application/json')
 def output_json(data, code, headers={"Content-Type": "application/json"}):
     events_data = json.dumps(data)
     resp = Response(events_data, status=code, headers=headers)
     return resp
     
-
+# representation decorator tells the app to route request to this method
+# when the request Content-Type is application/json+ld
 @api.representation('application/json+ld')
 def output_json_ld(data, code, headers={"Content-Type": "application/json+ld"}):
     events_data = func.format_ld_json(data)
@@ -44,14 +42,13 @@ def output_json_ld(data, code, headers={"Content-Type": "application/json+ld"}):
     resp = Response(events_data, status=code, headers=headers)
     return resp
 
-api.representations['application/json+ld'] = output_json_ld
-
 class Event(Resource):
     def get(self):
         with open('all_meetings.json') as json_data:
             events= json.load(json_data)
         return events
 
+# binds the resource Event, to the endpoint `/api/gtc`
 api.add_resource(Event, '/api/gtc')
 
 if __name__ == '__main__':
