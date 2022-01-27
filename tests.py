@@ -1,12 +1,13 @@
 import test_fixtures as fixtures
-import app
+import update_functions as app
 import simplejson as json
 import unittest
 import unittest.mock as mock
+import requests
 
 class TestEventList(unittest.TestCase):
     # testing functions in app.py
-
+    
     def test_format_meetup_events(self):
         #function should return a list of dictionaries
         output = app.format_meetup_events(fixtures.meetup_events_list)

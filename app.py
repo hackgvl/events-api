@@ -1,22 +1,25 @@
-from flask import Flask, jsonify, request
+from urllib import response
+from flask import Flask, Response
 from flask_cors import CORS
 import simplejson as json
 from configparser import ConfigParser
-# import requests
-import datetime
-import pytz
-from dateutil.parser import parse
+import app_functions as func
+from flask_restful import Api, Resource
 
 # import config file to global object
 config = ConfigParser()
 config_file = 'config.ini'
 config.read(config_file)
 
+
 import logging
 from logging.config import fileConfig
 
 # instantiate flask app
 app = Flask(__name__)
+app.debug = True
+# JSONIFY throws an error, as Flask tries to access a depecrated method, `request.is_xhr`
+# Update Flask version to solve this more permanently
 app.config['JSONIFY_PRETTYPRINT_REGULAR'] = False
 CORS(app)
 app.config['SECRET_KEY'] = config.get('flask', 'secret_key')
@@ -24,87 +27,32 @@ app.config['SECRET_KEY'] = config.get('flask', 'secret_key')
 fileConfig('logging_config.ini')
 logger = logging.getLogger()
 
-# Method used for parsing dates throughout functions
-def parse_date(d):
-    if isinstance(d, datetime.datetime):
-        parsed_date = d
-    elif isinstance(d, str):
-        try:
-            eastern = pytz.timezone('US/Eastern')
-            date_no_tz = parse(d)
-            parsed_date = eastern.localize(date_no_tz, is_dst=None)
-        except ValueError:
-            return 'Start date {} is in unknown format. '.format(d)
-    else:
-        return 'Start date {} is in unknown format. '.format(d)
-    return parsed_date
 
-# Takes list of events and returns list of events occuring in specified date range
-def filter_events_by_date(events, start_date_str=datetime.datetime.now(datetime.timezone.utc), end_date_str=None):
-    start_date = parse_date(start_date_str) if start_date_str else None
-    end_date = parse_date(end_date_str) if end_date_str else None
+api = Api(app)
 
-    if isinstance(start_date, str) or isinstance(end_date, str):
-        return '{}{}'.format(start_date, end_date).replace('None', '')
-
-    if start_date and end_date:
-        return [event for event in events if start_date <= parse(event['time']) <= end_date]
-    elif start_date:
-        return [event for event in events if parse(event['time']) >= start_date]
-    elif end_date:
-        return [event for event in events if parse(event['time']) <= end_date]
-    else:
-        
-        return events
-
-# Takes list of events and string of tags to return list of events with specified tags
-def filter_events_by_tag(events, tags):
-    if tags:
-        tags_list = tags.replace(' ', '').split(',')
-        filtered_events = []
-        for tag in tags_list:
-            filtered_events += [event for event in events if tag in event['tags']]
-        return filtered_events
-    else:
-        return events
-
-def normalize_eventbrite_status_codes(status):
-    # takes current status from eventbrite, and matches it to meetup's vernacular
-    status_dict = {
-        'canceled': 'cancelled',
-        'live': 'upcoming',
-        'ended': 'past'
-    }
-    return status_dict.get(status)
-
-def get_dates():
-    # retrieves date parameters if given
-    # if no date parameters have been given,
-    # use current time - default days in the past (see config) for start_date
-    if request.args.get('start_date'):
-        start_date = request.args.get('start_date', datetime.datetime.now(datetime.timezone.utc))
-    else: 
-        default_days_in_the_past = config.get('past_events', 'default_days_in_the_past')
-        current_time = (datetime.datetime.utcnow())
-        start_date = (current_time - datetime.timedelta(int(default_days_in_the_past))).strftime('%Y-%m-%d')
-
-    end_date = request.args.get('end_date', None)
-    return start_date, end_date
+@api.representation('application/json')
+def output_json(data, code, headers={"Content-Type": "application/json"}):
+    events_data = json.dumps(data)
+    resp = Response(events_data, status=code, headers=headers)
+    return resp
     
 
-@app.route('/api/gtc', methods=['GET', 'POST'])
-def get_meetings():
-    start_date, end_date = get_dates()
-    tags = request.args.get('tags', None)
-    with open('all_meetings.json') as json_data:
-        events_json = json.load(json_data)
-        events_date_filter = filter_events_by_date(start_date_str=start_date, end_date_str=end_date, events=events_json)
-        events = filter_events_by_tag(events_date_filter, tags)
+@api.representation('application/json+ld')
+def output_json_ld(data, code, headers={"Content-Type": "application/json+ld"}):
+    events_data = func.format_ld_json(data)
+    events_data = json.dumps(events_data)
+    resp = Response(events_data, status=code, headers=headers)
+    return resp
 
-        # Sort events by time
-        events_json.sort(key=lambda s: s['time'])
-        return jsonify(events)
+api.representations['application/json+ld'] = output_json_ld
 
+class Event(Resource):
+    def get(self):
+        with open('all_meetings.json') as json_data:
+            events= json.load(json_data)
+        return events
+
+api.add_resource(Event, '/api/gtc')
 
 if __name__ == '__main__':
     app.run()
