@@ -25,18 +25,17 @@ logger = logging.getLogger()
 
 api = Api(app)
 
-# representation decorator tells the app to route request to this method
-# when the request Content-Type is application/json
-# See https://flask-restful.readthedocs.io/en/latest/extending.html#content-negotiation
-# for description of this decorator. 
+"""Representation decorator tells the app to route request to this method
+when the request Content-Type is application/json
+See https://flask-restful.readthedocs.io/en/latest/extending.html#content-negotiation
+for description of this decorator.
+"""
 @api.representation('application/json')
 def output_json(data, code, headers={"Content-Type": "application/json"}):
     events_data = json.dumps(data)
     resp = Response(events_data, status=code, headers=headers)
     return resp
     
-# representation decorator tells the app to route request to this method
-# when the request Content-Type is application/json+ld
 @api.representation('application/json+ld')
 def output_json_ld(data, code, headers={"Content-Type": "application/json+ld"}):
     events_data = func.format_ld_json(data)
@@ -50,8 +49,7 @@ class Event(Resource):
             events= json.load(json_data)
         return events
 
-# binds the resource Event, to the endpoint `/api/gtc`
-api.add_resource(Event, '/api/gtc')
+api.add_resource(Event, '/api/gtc') # binds the resource Event, to the endpoint `/api/gtc`
 
 if __name__ == '__main__':
     app.run()
