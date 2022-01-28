@@ -27,6 +27,8 @@ api = Api(app)
 
 # representation decorator tells the app to route request to this method
 # when the request Content-Type is application/json
+# See https://flask-restful.readthedocs.io/en/latest/extending.html#content-negotiation
+# for description of this decorator. 
 @api.representation('application/json')
 def output_json(data, code, headers={"Content-Type": "application/json"}):
     events_data = json.dumps(data)
