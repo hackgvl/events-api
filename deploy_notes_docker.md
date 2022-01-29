@@ -26,7 +26,7 @@
 		3. (No longer needed) Version 3 of the Meetup.com API requires an Oauth Key. However, as of Oct 2019, we're using only public GET API endpoints that require not authentication. It's not necessary to register a Meetup.com API key unless/until the app needs access to an authenticated endpoint, at which point the key could be added to the config file
 	
 3. Create a local logging_config.ini file
-   1. `cp logging_config.ini.example-docker logging_config.ini`
+   1. `cp logging_config.ini.example logging_config.ini`
    2. `mkdir logs`
 
 4. Test with gunicorn WSGI Server on a localhost port
