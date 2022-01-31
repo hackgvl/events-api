@@ -172,7 +172,8 @@ def normalize_eventbrite_status_codes(status):
     status_dict = {
         'canceled': 'cancelled',
         'live': 'upcoming',
-        'ended': 'past'
+        'ended': 'past',
+        'completed': 'past'
     }
     return status_dict.get(status)
 
