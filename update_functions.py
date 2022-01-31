@@ -1,4 +1,8 @@
-import json, datetime, requests
+import json
+import datetime
+import requests
+import uuid
+import random
 from configparser import ConfigParser
 
 config = ConfigParser()
@@ -60,7 +64,10 @@ def format_meetup_events(events_raw, group_list):
         venue_dict = event.get('venue')
         group_item = [i for i in group_list if i.get('field_events_api_key') == str(event['group']['urlname'])][0]
         tags = group_item.get('field_org_tags')
-        uuid = group_item.get('uuid')
+        
+        random.seed('meetup' + event.get('id'))
+        unique_id = str(uuid.UUID(bytes=bytes(random.getrandbits(8) for _ in range(16)), version=4))
+
         nid = group_item.get('nid')
 
         if venue_dict:
@@ -96,10 +103,12 @@ def format_meetup_events(events_raw, group_list):
                 'created_at': datetime.datetime.utcfromtimestamp(int(event.get('created'))/1000)
                                   .strftime('%Y-%m-%dT%H:%M:%SZ'),
                 'description': description,
-                'uuid': uuid,
+                'uuid': unique_id,
                 'nid': nid,
                 'data_as_of': datetime.datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%SZ'),
-                'status': event.get('status')
+                'status': event.get('status'),
+                'service_id': event.get('id'),
+                'service': 'meetup'
             }
         except TypeError:
             pass
@@ -195,7 +204,10 @@ def format_eventbrite_events(events_list, venues_list, group_list):
             group_item = [i for i in group_list if i['field_events_api_key'] == event.get('organizer_id')][0]
             group_name = group_item.get('title')
             tags = group_item.get('field_org_tags')
-            uuid = group_item.get('uuid')
+            
+            random.seed('meetup' + event.get('id'))
+            unique_id = str(uuid.UUID(bytes=bytes(random.getrandbits(8) for _ in range(16)), version=4))
+            
             nid = group_item.get('nid')
             if type(event.get('venue_id')) == str:
                 event_dict = {
@@ -224,10 +236,12 @@ def format_eventbrite_events(events_list, venues_list, group_list):
                     'rsvp_count': None,
                     'created_at': event.get('created'),
                     'description': event.get('description').get('text'),
-                    'uuid': uuid,
+                    'uuid': unique_id,
                     'nid': nid,
                     'data_as_of': datetime.datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%SZ'),
-                    'status': normalize_eventbrite_status_codes(event.get('status'))
+                    'status': normalize_eventbrite_status_codes(event.get('status')),
+                    'service_id': event.get('id'),
+                    'service': 'eventbrite'
                 }
             events.append(event_dict)
     return events
