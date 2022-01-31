@@ -17,6 +17,7 @@ from logging.config import fileConfig
 
 # instantiate flask app
 app = Flask(__name__)
+app.config['JSONIFY_PRETTYPRINT_REGULAR'] = False
 CORS(app)
 app.config['SECRET_KEY'] = config.get('flask', 'secret_key')
 
