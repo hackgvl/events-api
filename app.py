@@ -17,7 +17,6 @@ from logging.config import fileConfig
 
 # instantiate flask app
 app = Flask(__name__)
-app.config['JSONIFY_PRETTYPRINT_REGULAR'] = False
 CORS(app)
 app.config['SECRET_KEY'] = config.get('flask', 'secret_key')
 
@@ -36,8 +35,6 @@ def output_json(data, code, headers={"Content-Type": "application/json"}):
     resp = Response(events_data, status=code, headers=headers)
     return resp
     
-# representation decorator tells the app to route request to this method
-# when the request Content-Type is application/json+ld
 @api.representation('application/json+ld')
 def output_json_ld(data, code, headers={"Content-Type": "application/json+ld"}):
     events_data = func.format_ld_json(data)
