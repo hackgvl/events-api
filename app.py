@@ -31,27 +31,13 @@ api = Api(app)
 # for description of this decorator. 
 @api.representation('application/json')
 def output_json(data, code, headers={"Content-Type": "application/json"}):
-    start_date, end_date = func.get_dates()
-    events = func.filter_events_by_date(data, start_date, end_date)
-    tags = request.args.get('tags', None)
-    
-    if tags:
-        events = func.filter_events_by_tag(events, tags)
-        
-    events_data = json.dumps(events)
+    events_data = json.dumps(data)
     resp = Response(events_data, status=code, headers=headers)
     return resp
     
 @api.representation('application/json+ld')
 def output_json_ld(data, code, headers={"Content-Type": "application/json+ld"}):
-    start_date, end_date = func.get_dates()
-    events = func.filter_events_by_date(data, start_date, end_date)
-    tags = request.args.get('tags', None)
-    
-    if tags:
-        events = func.filter_events_by_tag(events, tags)
-        
-    events_data = func.format_ld_json(events)
+    events_data = func.format_ld_json(data)
     events_data = json.dumps(events_data)
     resp = Response(events_data, status=code, headers=headers)
     return resp
@@ -60,6 +46,13 @@ class Event(Resource):
     def get(self):
         with open('all_meetings.json') as json_data:
             events= json.load(json_data)
+        start_date, end_date = func.get_dates()
+        events = func.filter_events_by_date(events, start_date, end_date)
+        tags = request.args.get('tags', None)
+    
+        if tags:
+            events = func.filter_events_by_tag(events, tags)
+            
         return events
 
 # binds the resource Event, to the endpoint `/api/gtc`
