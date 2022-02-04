@@ -44,8 +44,8 @@ def output_json_ld(data, code, headers={"Content-Type": "application/json+ld"}):
 
 class Event(Resource):
     def get(self):
-        with open('all_meetings.json', 'w') as json_data:
-            events= json.load(json_data)
+        with open('all_meetings.json') as json_data:
+            events = json.load(json_data)
         start_date, end_date = func.get_dates()
         events = func.filter_events_by_date(events, start_date, end_date)
         tags = request.args.get('tags', None)
