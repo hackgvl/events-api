@@ -4,10 +4,6 @@ secret_key = secret
 [eventbrite]
 token = ABC123
 
-[aws]
-username = user
-update_cal_location = /app/update_cal_data.py
-
 [past_events]
 max_days_in_the_past = 5
 default_days_in_the_past = 3
