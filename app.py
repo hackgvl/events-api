@@ -1,5 +1,5 @@
 from urllib import response
-from flask import Flask, Response
+from flask import Flask, Response, request
 from flask_cors import CORS
 import simplejson as json
 from configparser import ConfigParser
@@ -31,13 +31,27 @@ api = Api(app)
 # for description of this decorator. 
 @api.representation('application/json')
 def output_json(data, code, headers={"Content-Type": "application/json"}):
-    events_data = json.dumps(data)
+    start_date, end_date = func.get_dates()
+    events = func.filter_events_by_date(data, start_date, end_date)
+    tags = request.args.get('tags', None)
+    
+    if tags:
+        events = func.filter_events_by_tag(events, tags)
+        
+    events_data = json.dumps(events)
     resp = Response(events_data, status=code, headers=headers)
     return resp
     
 @api.representation('application/json+ld')
 def output_json_ld(data, code, headers={"Content-Type": "application/json+ld"}):
-    events_data = func.format_ld_json(data)
+    start_date, end_date = func.get_dates()
+    events = func.filter_events_by_date(data, start_date, end_date)
+    tags = request.args.get('tags', None)
+    
+    if tags:
+        events = func.filter_events_by_tag(events, tags)
+        
+    events_data = func.format_ld_json(events)
     events_data = json.dumps(events_data)
     resp = Response(events_data, status=code, headers=headers)
     return resp
