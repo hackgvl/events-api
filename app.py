@@ -1,9 +1,5 @@
 from urllib import response
-<<<<<<< HEAD
-from flask import Flask, Response
-=======
 from flask import Flask, Response, request
->>>>>>> upstream/master
 from flask_cors import CORS
 import simplejson as json
 from configparser import ConfigParser

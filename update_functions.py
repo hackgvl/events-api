@@ -1,12 +1,8 @@
-<<<<<<< HEAD
-import json, datetime, requests
-=======
 import json
 import datetime
 import requests
 import uuid
 import random
->>>>>>> upstream/master
 from configparser import ConfigParser
 
 config = ConfigParser()
