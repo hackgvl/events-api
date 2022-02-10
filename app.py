@@ -1,5 +1,9 @@
 from urllib import response
+<<<<<<< HEAD
 from flask import Flask, Response
+=======
+from flask import Flask, Response, request
+>>>>>>> upstream/master
 from flask_cors import CORS
 import simplejson as json
 from configparser import ConfigParser
@@ -25,17 +29,16 @@ logger = logging.getLogger()
 
 api = Api(app)
 
-"""Representation decorator tells the app to route request to this method
-when the request Content-Type is application/json
-See https://flask-restful.readthedocs.io/en/latest/extending.html#content-negotiation
-for description of this decorator.
-"""
+# representation decorator tells the app to route request to this method
+# when the request Content-Type is application/json
+# See https://flask-restful.readthedocs.io/en/latest/extending.html#content-negotiation
+# for description of this decorator. 
 @api.representation('application/json')
 def output_json(data, code, headers={"Content-Type": "application/json"}):
     events_data = json.dumps(data)
     resp = Response(events_data, status=code, headers=headers)
     return resp
-    
+
 @api.representation('application/json+ld')
 def output_json_ld(data, code, headers={"Content-Type": "application/json+ld"}):
     events_data = func.format_ld_json(data)
@@ -46,10 +49,18 @@ def output_json_ld(data, code, headers={"Content-Type": "application/json+ld"}):
 class Event(Resource):
     def get(self):
         with open('all_meetings.json') as json_data:
-            events= json.load(json_data)
+            events = json.load(json_data)
+        start_date, end_date = func.get_dates()
+        events = func.filter_events_by_date(events, start_date, end_date)
+        tags = request.args.get('tags', None)
+    
+        if tags:
+            events = func.filter_events_by_tag(events, tags)
+            
         return events
 
-api.add_resource(Event, '/api/gtc') # binds the resource Event, to the endpoint `/api/gtc`
+# binds the resource Event, to the endpoint `/api/gtc`
+api.add_resource(Event, '/api/gtc')
 
 if __name__ == '__main__':
     app.run()

@@ -1,6 +1,8 @@
+These steps are intended to be run the first time a development or production copy of this application is setup.
+
 1. Open a Command Prompt / Terminal / Shell, either:
    1. On your local computer / localhost
-   1. Or, if you develop on a remote server then SSH into th remote machine.
+   1. Or, if you develop on a remote server then SSH into the remote machine.
 2. Execute the following commands:
    1. (Optional) For Production or Remote Servers Only
       1. `sudo useradd usernamehere -s /bin/bash && passwd usernamehere`
@@ -10,11 +12,11 @@
       1. Ubuntu / Debian: `sudo apt-get update` && `sudo apt-get install git`
       1. Mac: `sudo brew install git`
    1. `cd` to change the directory to where you want the git repository / application to be downloaded
-   5. Clone the GitHub repository
+   5. Clone the GitHub repository, or your fork
       1. Using the SSH protocol: `git clone git@github.com:codeforgreenville/upstate_tech_cal_service.git`
       1. Or, using the HTTPS protcol: `git clone https://github.com/codeforgreenville/upstate_tech_cal_service.git`
    6. `cd upstate_tech_cal_service`
-   7. `curl https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -o miniconda.sh`
+   7. [Install Miniconda](https://docs.conda.io/en/latest/miniconda.html#latest-miniconda-installer-links) (Linux example) `curl https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh`
    8. `sh miniconda.sh -b -p $HOME/miniconda`
    9. `export PATH="$HOME/miniconda/bin:$PATH"`
    10. `conda env create -f environment.yml`
@@ -31,7 +33,7 @@
    1. `cp logging_config.ini.example logging_config.ini`
    2. `mkdir logs`
 5. Test with gunicorn WSGI Server on a localhost port
-   1. Run the following to generate / update the `all_meetsups.json` file in your application directory.
+   1. Run the following to generate / update the `all_meetups.json` file in your application directory.
    2. cd ~/upstate_tech_cal_service && conda activate cal_service && python update_cal_data.py && conda deactivate
    2. Start a "localhost" web server: `gunicorn --bind 0.0.0.0:8000 app:app`
    2. Visit the localhost application in your web browser, and see if it works: `http://localhost:8000/api/gtc?tags=1'`

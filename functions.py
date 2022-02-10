@@ -1,22 +1,18 @@
-<<<<<<< HEAD
-import json, datetime, requests
-=======
-import json
-import datetime
 import requests
-import uuid
-import random
->>>>>>> upstream/master
+from flask import Flask, jsonify, request
+import simplejson as json
+import datetime
 from configparser import ConfigParser
+import app
 
+# import config file to global object
 config = ConfigParser()
 config_file = 'config.ini'
 config.read(config_file)
 
+
+# Queries openupstate API for list of groups. Returns dictionary with each source as key (e.g. 'Meetup', 'Eventbrite')
 def get_group_lists():
-    # Queries openupstate API for list of sources , 
-    # organizes them into a set, removing duplicates. 
-    # Returns dictionary of groups with each group source as keys (e.g. 'Meetup', 'Eventbrite', 'Facebook')
     url = 'https://data.openupstate.org/rest/organizations?org_status=active&_format=json'
     r = requests.get(url)
     if r.status_code != 200:
@@ -27,10 +23,12 @@ def get_group_lists():
     groups_by_source = {}
     for source in all_sources:
         groups_by_source[source] = [i for i in data if i['field_event_service'] == source]
+    
     return groups_by_source
 
 # Takes list of groups and makes API call to Meetup.com to get event details. Returns list.
 def get_meetup_events(group_list):
+
     # Extract field_event_api_key from each item in group_list
     group_apis = [i['field_events_api_key'] for i in group_list]
     # Create empty list to be returned by the function
@@ -60,18 +58,15 @@ def get_meetup_events(group_list):
         
     return all_events
 
+# Takes list of events from Meetup and returns formatted list of events
 def format_meetup_events(events_raw, group_list):
-    # Takes list of events from Meetup and returns formatted list of events
-
+    
     events = []
     for event in events_raw:
         venue_dict = event.get('venue')
         group_item = [i for i in group_list if i.get('field_events_api_key') == str(event['group']['urlname'])][0]
         tags = group_item.get('field_org_tags')
-        
-        random.seed('meetup' + event.get('id'))
-        unique_id = str(uuid.UUID(bytes=bytes(random.getrandbits(8) for _ in range(16)), version=4))
-
+        uuid = group_item.get('uuid')
         nid = group_item.get('nid')
 
         if venue_dict:
@@ -107,12 +102,10 @@ def format_meetup_events(events_raw, group_list):
                 'created_at': datetime.datetime.utcfromtimestamp(int(event.get('created'))/1000)
                                   .strftime('%Y-%m-%dT%H:%M:%SZ'),
                 'description': description,
-                'uuid': unique_id,
+                'uuid': uuid,
                 'nid': nid,
                 'data_as_of': datetime.datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%SZ'),
-                'status': event.get('status'),
-                'service_id': event.get('id'),
-                'service': 'meetup'
+                'status': event.get('status')
             }
         except TypeError:
             pass
@@ -123,6 +116,7 @@ def format_meetup_events(events_raw, group_list):
 # Takes list of groups hosted on EventBrite and returns list of events.
 def get_eventbrite_events(group_list):
     group_ids = [i['field_events_api_key'] for i in group_list if i['field_events_api_key'] != '']
+
     token = config.get('eventbrite', 'token')
     events = []
 
@@ -147,9 +141,13 @@ def get_eventbrite_events(group_list):
         if r.status_code != 200:
             raise Exception('Could not connect to Eventbrite API at {}.  Status Code: {}'.format(url, r.status_code))
         data = json.loads(r.text)
+        
         if data.get('events'):
             events_list = data.get('events')
             events += events_list
+        
+        
+    
     return events
 
 
@@ -170,16 +168,6 @@ def get_eventbrite_venues(events_list):
             data = json.loads(r.text)
             venues.append(data)
     return venues
-
-def normalize_eventbrite_status_codes(status):
-    # takes current status from eventbrite, and matches it to meetup's vernacular
-    status_dict = {
-        'canceled': 'cancelled',
-        'live': 'upcoming',
-        'ended': 'past',
-        'completed': 'past'
-    }
-    return status_dict.get(status)
 
 
 # Takes list of events hosted on EventBrite, list of venues, and list of all groups and returns formatted list of events
@@ -209,11 +197,9 @@ def format_eventbrite_events(events_list, venues_list, group_list):
             group_item = [i for i in group_list if i['field_events_api_key'] == event.get('organizer_id')][0]
             group_name = group_item.get('title')
             tags = group_item.get('field_org_tags')
-            
-            random.seed('meetup' + event.get('id'))
-            unique_id = str(uuid.UUID(bytes=bytes(random.getrandbits(8) for _ in range(16)), version=4))
-            
+            uuid = group_item.get('uuid')
             nid = group_item.get('nid')
+            import pdb; pdb.set_trace()
             if type(event.get('venue_id')) == str:
                 event_dict = {
                     'event_name': event.get('name').get('text'),
@@ -228,7 +214,7 @@ def format_eventbrite_events(events_list, venues_list, group_list):
                     'uuid': uuid,
                     'nid': nid,
                     'data_as_of': datetime.datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%SZ'),
-                    'status': normalize_eventbrite_status_codes(event.get('status'))
+                    'status': app.normalize_eventbrite_status_codes(event.get('status'))
                 }
             elif event.get('venue_id') == None: # if event venue is None, it is online/virtual
                 event_dict = {
@@ -241,12 +227,11 @@ def format_eventbrite_events(events_list, venues_list, group_list):
                     'rsvp_count': None,
                     'created_at': event.get('created'),
                     'description': event.get('description').get('text'),
-                    'uuid': unique_id,
+                    'uuid': uuid,
                     'nid': nid,
                     'data_as_of': datetime.datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%SZ'),
-                    'status': normalize_eventbrite_status_codes(event.get('status')),
-                    'service_id': event.get('id'),
-                    'service': 'eventbrite'
+                    'status': app.normalize_eventbrite_status_codes(event.get('status'))
                 }
             events.append(event_dict)
     return events
+

@@ -4,12 +4,14 @@ logs/
 *.pyc
 .vscode/settings.json
 *.sh
+!entrypoint.sh
 
 # Elastic Beanstalk Files
 .elasticbeanstalk/*
 !.elasticbeanstalk/*.cfg.yml
 !.elasticbeanstalk/*.global.yml
 /all_meetings.json
+all_meetings.json
 
 # Virtual Environment
 /venv

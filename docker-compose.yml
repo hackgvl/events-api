@@ -1,0 +1,16 @@
+version: '3'
+
+services:
+  upstate-tech-cal-server:
+    build:
+      context: .
+    image: upstate-tech-cal-server
+    container_name: upstate-tech-cal-server
+    ports:
+      - "127.0.0.1:8000:8000"
+    volumes:
+      - "./config.ini:/app/config.ini"
+      - "./logging_config.ini:/app/logging_config.ini"
+      - "./all_meetings.json:/app/all_meetings.json"
+      - "./logs/:/app/logs"
+    restart: always
