@@ -17,7 +17,7 @@ The events from supported serivces are pulled, combined, and re-published in [JS
 ### Documentation
 
 #### Setup
-If you're new here, then initial setup of test or production environment with Python + Miniconda + Flask app can be found in the [deploy_notes_initial.md](https://github.com/codeforgreenville/upstate_tech_cal_service/blob/master/deploy_notes_initial.md).
+If you're new here, then initial setup of test or production environment with Python + Pipenv + Flask app can be found in the [deploy_notes_initial.md](https://github.com/codeforgreenville/upstate_tech_cal_service/blob/master/deploy_notes_initial.md).
 Docker setup notes can be found in [deploy_notes_docker.md](https://github.com/codeforgreenville/upstate_tech_cal_service/blob/master/deploy_notes_docker.md)
 
 Other [general application notes are included in the issue from before the app was migrated](https://github.com/codeforgreenville/upstate_tech_cal_service/issues/14) off Heroku onto a dedicated server.
