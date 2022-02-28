@@ -8,4 +8,4 @@ This document describes how to deploy new Git code updates to the production sit
 6. Reload daemon: `sudo systemctl daemon-reload`
 7. Restart gunicorn: `sudo systemctl restart gunicorn`
 8. Restart nginx: `sudo systemctl restart nginx`
-9. Run the app, either manually `conda activate cal_service && python update_cal_data.py && conda deactivate`  or when the next cronjob runs
+9. Run the app, either manually `pipenv shell && python update_cal_data.py && exit`  or when the next cronjob runs
