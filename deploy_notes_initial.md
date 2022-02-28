@@ -16,13 +16,15 @@ These steps are intended to be run the first time a development or production co
       1. Using the SSH protocol: `git clone git@github.com:codeforgreenville/upstate_tech_cal_service.git`
       1. Or, using the HTTPS protcol: `git clone https://github.com/codeforgreenville/upstate_tech_cal_service.git`
    6. `cd upstate_tech_cal_service`
-   7. [Install Miniconda](https://docs.conda.io/en/latest/miniconda.html#latest-miniconda-installer-links) (Linux example) `curl https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh`
-   8. `sh miniconda.sh -b -p $HOME/miniconda`
-   9. `export PATH="$HOME/miniconda/bin:$PATH"`
-   10. `conda env create -f environment.yml`
-   1. Activate the application environment
-      1. `conda activate cal_service`
-      1. Or, the older way will work too: `source activate cal_service`
+   7. [Install Pipenv](https://pipenv.pypa.io/en/latest/#install-pipenv-today)  For Linux: `$ curl https://raw.githubusercontent.com/pypa/pipenv/master/get-pipenv.py | python`  
+      1. Verify the installation with `pipenv --version`, the output should look something like:  
+      ```
+      pipenv, version 2021.5.29
+      ```
+   8.  In the project directory, run `pipenv install`  This installs dependencies listed in the project's Pipfile and creates a virtualenv for the project. 
+      1. You can verify the env has been created by checking `~/.local/share/virtualenvs/`
+      1. To activate the subshell, use `pipenv shell`
+      1. For any other help with available Pipenv commands, use `pipenv -h`  
 3. Create a local config.ini file, if one does not exist.
    1. `cp config.ini.example config.ini && nano config.ini`
    1. Fill in the placeholder values in your config.ini with the real values for the following, `nano config.ini`
@@ -34,12 +36,12 @@ These steps are intended to be run the first time a development or production co
    2. `mkdir logs`
 5. Test with gunicorn WSGI Server on a localhost port
    1. Run the following to generate / update the `all_meetups.json` file in your application directory.
-   2. cd ~/upstate_tech_cal_service && conda activate cal_service && python update_cal_data.py && conda deactivate
+   2. cd ~/upstate_tech_cal_service && pipenv shell && python update_cal_data.py && exit
    2. Start a "localhost" web server: `gunicorn --bind 0.0.0.0:8000 app:app`
    2. Visit the localhost application in your web browser, and see if it works: `http://localhost:8000/api/gtc?tags=1'`
 4. (Optional) On Remote or Production Servers - Setup a cronjob to generate the all_meetings.json, for example, at :35 after every hour
    1. `crontab -e -u usernamehere`
-   2. `35 * * * * source $HOME/.bashrc; cd ~/upstate_tech_cal_service && conda activate cal_service && python update_cal_data.py && conda deactivate`
+   2. `35 * * * * source $HOME/.bashrc; cd ~/upstate_tech_cal_service && pipenv shell && python update_cal_data.py && exit`
 6. (Optional) Configure hosting via a real Web Server, like Apache or Nginx
    1. Setup gunicorn as a systemd daemon. **Change "apache" to "nginx" in this file if you're using Nginx.**
       1. `sudo nano /etc/systemd/system/gunicorn.service`
@@ -126,3 +128,4 @@ Kudos To
 * https://www.vioan.eu/blog/2016/10/10/deploy-your-flask-python-app-on-ubuntu-with-apache-gunicorn-and-systemd/
 * https://www.digitalocean.com/community/tutorials/how-to-serve-flask-applications-with-gunicorn-and-nginx-on-centos-7
 * https://www.digitalocean.com/community/tutorials/how-to-set-up-django-with-postgres-nginx-and-gunicorn-on-ubuntu-16-04
+* https://pipenv.pypa.io/en/latest/install/
