@@ -52,7 +52,7 @@ class Event(Resource):
     
         if tags:
             events = func.filter_events_by_tag(events, tags)
-            
+        events.sort(key=lambda s: s['time'])
         return events
 
 # binds the resource Event, to the endpoint `/api/gtc`
