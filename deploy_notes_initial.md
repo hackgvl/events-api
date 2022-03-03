@@ -17,7 +17,7 @@ These steps are intended to be run the first time a development or production co
       1. Or, using the HTTPS protcol: `git clone https://github.com/codeforgreenville/upstate_tech_cal_service.git`
    6. `cd upstate_tech_cal_service`
    7. [Install Pipenv](https://pipenv.pypa.io/en/latest/#install-pipenv-today)  
-   For Linux: `$ curl https://raw.githubusercontent.com/pypa/pipenv/master/get-pipenv.py | python`  
+   For Linux: `curl https://raw.githubusercontent.com/pypa/pipenv/master/get-pipenv.py | python`  
       1. Verify the installation with `pipenv --version`, the output should look something like:  
       ```
       pipenv, version 2021.5.29
@@ -25,6 +25,7 @@ These steps are intended to be run the first time a development or production co
    8.  In the project directory, run `pipenv install`  
    This installs dependencies listed in the project's Pipfile and creates a virtualenv for the project. 
       1. You can verify the env has been created by checking for it at `~/.local/share/virtualenvs/`
+      1. To install a new package, you can use `pipenv install <package-name>`
       1. To activate the subshell, use `pipenv shell`
       1. For more help with available Pipenv commands, use `pipenv -h`  
 3. Create a local config.ini file, if one does not exist.
