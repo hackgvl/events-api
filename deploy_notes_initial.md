@@ -16,8 +16,7 @@ These steps are intended to be run the first time a development or production co
       1. Using the SSH protocol: `git clone git@github.com:codeforgreenville/upstate_tech_cal_service.git`
       1. Or, using the HTTPS protcol: `git clone https://github.com/codeforgreenville/upstate_tech_cal_service.git`
    6. `cd upstate_tech_cal_service`
-   7. [Install Pipenv](https://pipenv.pypa.io/en/latest/#install-pipenv-today)  
-   For Linux: `curl https://raw.githubusercontent.com/pypa/pipenv/master/get-pipenv.py | python`  
+   7. [Install Pipenv](https://pipenv.pypa.io/en/latest/#install-pipenv-today)
       1. Verify the installation with `pipenv --version`, the output should look something like:  
       ```
       pipenv, version 2021.5.29
