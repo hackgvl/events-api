@@ -44,7 +44,7 @@ These steps are intended to be run the first time a development or production co
    1. `crontab -e -u usernamehere`
    2. `35 * * * * source $HOME/.bashrc; cd ~/upstate_tech_cal_service && pipenv shell && python update_cal_data.py && exit`
 6. (Optional) Configure hosting via a real Web Server, like Apache or Nginx
-   1. Setup gunicorn as a systemd daemon. **Change "apache" to "nginx" in this file if you're using Nginx.**
+   1. Setup gunicorn as a systemd daemon. **Change "apache" to "nginx" in this file if you're using Nginx, and update the USERNAME and virtualenvs path to match your path.**
       1. `sudo nano /etc/systemd/system/gunicorn.service`
       1. ~~~
          [Unit]
@@ -55,8 +55,8 @@ These steps are intended to be run the first time a development or production co
          User=root
          Group=apache
          WorkingDirectory=/home/eventapi/upstate_tech_cal_service
-         Environment="PATH=/home/eventapi/miniconda/envs/cal_service/bin"
-         ExecStart=/home/eventapi/miniconda/envs/cal_service/bin/gunicorn --workers 3 --log-file /var/log/gunicorn.log --log-level error --bind unix:/var/run/cal_service.sock -m 007 app:app
+         Environment="PATH=/home/USERNAME/.local/share/virtualenvs/upstate_tech_cal_service-########/bin"
+         ExecStart=/home/USERNAME/.local/share/virtualenvs/upstate_tech_cal_service-########/bin/gunicorn --workers 3 --log-file /var/log/gunicorn.log --log-level error --bind unix:/var/run/cal_service.sock -m 007 app:app
 
          [Install]
          WantedBy=multi-user.target
