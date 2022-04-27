@@ -221,7 +221,7 @@ def format_eventbrite_events(events_list, venues_list, group_list):
                     'rsvp_count': None,
                     'created_at': event.get('created'),
                     'description': event.get('description').get('text'),
-                    'uuid': uuid,
+                    'uuid': unique_id,
                     'nid': nid,
                     'data_as_of': datetime.datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%SZ'),
                     'status': normalize_eventbrite_status_codes(event.get('status'))
