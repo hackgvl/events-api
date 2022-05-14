@@ -180,13 +180,12 @@ def normalize_eventbrite_status_codes(status):
 
 # Takes list of events hosted on EventBrite, list of venues, and list of all groups and returns formatted list of events
 def format_eventbrite_events(events_list, venues_list, group_list):
-
     venues = {}
     events = []
     for venue in venues_list:
         venue_id = venue.get('id')
         venue_address = venue.get('address')
-        venue_dict = {}
+        # venue_dict = {}
         if venue_address:
             venue_dict = {
                 'name': venue.get('name'),
@@ -205,32 +204,18 @@ def format_eventbrite_events(events_list, venues_list, group_list):
             group_item = [i for i in group_list if i['field_events_api_key'] == event.get('organizer_id')][0]
             group_name = group_item.get('title')
             tags = group_item.get('field_org_tags')
-            
+            # creates unique_id for events
             random.seed('meetup' + event.get('id'))
             unique_id = str(uuid.UUID(bytes=bytes(random.getrandbits(8) for _ in range(16)), version=4))
-            
             nid = group_item.get('nid')
             if type(event.get('venue_id')) == str:
-                event_dict = {
+                venue = venues[event.get('venue_id')]
+            else:
+                venue = event.get('venue_id')
+            event_dict = {
                     'event_name': event.get('name').get('text'),
                     'group_name': group_name,
-                    'venue': venues[event.get('venue_id')],
-                    'url': event.get('url'),
-                    'time': event.get('start').get("utc"),
-                    'tags': tags,
-                    'rsvp_count': None,
-                    'created_at': event.get('created'),
-                    'description': event.get('description').get('text'),
-                    'uuid': unique_id,
-                    'nid': nid,
-                    'data_as_of': datetime.datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%SZ'),
-                    'status': normalize_eventbrite_status_codes(event.get('status'))
-                }
-            elif event.get('venue_id') == None: # if event venue is None, it is online/virtual
-                event_dict = {
-                    'event_name': event.get('name').get('text'),
-                    'group_name': group_name,
-                    'venue': event.get('venue_id'),
+                    'venue': venue,
                     'url': event.get('url'),
                     'time': event.get('start').get("utc"),
                     'tags': tags,
