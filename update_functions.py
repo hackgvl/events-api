@@ -224,7 +224,9 @@ def format_eventbrite_events(events_list, venues_list, group_list):
                     'uuid': unique_id,
                     'nid': nid,
                     'data_as_of': datetime.datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%SZ'),
-                    'status': normalize_eventbrite_status_codes(event.get('status'))
+                    'status': normalize_eventbrite_status_codes(event.get('status')),
+                    'service_id': event.get('id'),
+                    'service': 'eventbrite'
                 }
             elif event.get('venue_id') == None: # if event venue is None, it is online/virtual
                 event_dict = {
