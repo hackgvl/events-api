@@ -88,20 +88,8 @@ def format_json_ld(events_json):
                 }
         else:
             location = {
-                "@type": "Place",
-                "name": event['venue'],
-                "address": {
-                "streetAddress": None, 
-                "addressLocality": None,
-                "addressRegion": None,
-                "addressCountry": None,
-                "postalCode": None
-                    },
-                "geo": {
-                    "@type": "GeoCoordinates",
-                    "latitude": None,
-                    "longitude": None,
-                    }
+                "@type": "VirtualLocation",
+                "url": event.get('url')
             }
         element = {
             "@type": "DataFeedItem",
