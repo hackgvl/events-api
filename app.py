@@ -37,7 +37,7 @@ def output_json(data, code, headers={"Content-Type": "application/json"}):
 
 @api.representation('application/json+ld')
 def output_json_ld(data, code, headers={"Content-Type": "application/json+ld"}):
-    events_data = func.format_ld_json(data)
+    events_data = func.format_json_ld(data)
     events_data = json.dumps(events_data)
     resp = Response(events_data, status=code, headers=headers)
     return resp
