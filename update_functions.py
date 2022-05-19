@@ -198,7 +198,6 @@ def format_eventbrite_events(events_list, venues_list, group_list):
                 'lon': venue_address.get('longitude')
             }
         venues[venue_id] = venue_dict
-
     for event in events_list:
         if type(event.get('venue_id')) == str or event.get('venue_id') is None:  # If venue id error
             group_item = [i for i in group_list if i['field_events_api_key'] == event.get('organizer_id')][0]
