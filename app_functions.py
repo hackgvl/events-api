@@ -69,7 +69,13 @@ def format_json_ld(events_json):
     # reformats all_meetings.json to JSON+LD 
     data_feed_elements = []
     for event in events_json:
-        if event.get('venue') is not None:
+        # if event is online:
+        if event['venue'] is None or event['venue']['name'] == "Online event":
+            location = {
+                "@type": "VirtualLocation",
+                "url": event.get('url')
+            }
+        else:
             location = {
                 "@type": "Place",
                 "name": event.get('venue').get('name'),
@@ -86,11 +92,7 @@ def format_json_ld(events_json):
                     "longitude": event.get('venue').get('lon'),
                     }
                 }
-        else:
-            location = {
-                "@type": "VirtualLocation",
-                "url": event.get('url')
-            }
+            
         element = {
             "@type": "DataFeedItem",
             "dateCreated": event.get("created_at"), 
