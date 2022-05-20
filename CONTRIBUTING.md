@@ -3,8 +3,6 @@
 - [Contribution Guidelines](#contribution-guidelines)
 - [How to Help](#how-to-help)
 - [Contributing Code](#contributing-code)
-  - [Fork the Project](#fork-the-project)
-  - [Clone Your Fork](#clone-your-fork)
 - [Running the Application](#running-the-application)
   - [Manual Mode](#manual-mode)
   - [Docker Mode](#docker-mode)
