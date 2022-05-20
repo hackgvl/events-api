@@ -40,9 +40,7 @@ When in doubt, you can reach out to an active project contributor:
 
 If you feel ready to contribute code to this project, then follow the below steps.
 
-## Fork the Project
-
-<details><summary>Step 1: Fork the Repository on GitHub</summary>
+<details><summary><b>Step 1</b> - Fork the Repository on GitHub</summary>
 
 ['Forking'](https://help.github.com/articles/about-forks/) is a step where you get your own copy of the repository (a.k.a repo) on GitHub.
 
@@ -54,11 +52,9 @@ Follow these steps to fork the `https://github.com/codeforgreenville/upstate_tec
 3. After the repository has been forked, you will be taken to your copy of the repository at `https://github.com/YOUR_USER_NAME/upstate_tech_cal_service`.
 
 </details>
-<details><summary>Step 2: Preparing the Development Environment</summary>
+<details><summary><b>Step 2</b> - Preparing the Development Environment</summary>
 
 Install [Git](https://git-scm.com/) and a code editor of your choice. We recommend using [VS Code](https://code.visualstudio.com/).
-
-## Clone Your Fork
 
 Clone your forked copy of the Events API code. ['Cloning'](https://help.github.com/articles/cloning-a-repository/) is where you download a copy of the repository from a `remote` location to your local machine. Run these commands on your local machine to clone the repository:
 
@@ -307,9 +303,7 @@ These steps are for localhost / local testing of the application.
 1. **Prerequisite**: [Install Python](https://wiki.python.org/moin/BeginnersGuide/Download) 3.9, or later.
 1. **Prerequisite**: [Install Pipenv](https://pipenv.pypa.io/en/latest/#install-pipenv-today)
 	1. Verify the installation with `pipenv --version`, the output should look something like:  
-	      ```
-      		pipenv, version 2021.5.29
-      		```
+	    > pipenv, version 2021.5.29
 1. Run `pipenv install` to install the required Python packages. This installs dependencies listed in the project's Pipfile and creates a virtualenv for the project. 
       1. You can verify the env has been created by checking for it at `~/.local/share/virtualenvs/`
       1. To install a new package, you can use `pipenv install <package-name>`
