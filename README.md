@@ -1,6 +1,6 @@
-## Upstate / Greenville, SC Tech Organization Events / Calendar API Service
+# Upstate / Greenville, SC Tech Organization Events / Calendar API Service
 
-This application provides an endpoint to return event data for all [organizations](https://data.openupstate.org/organizations) listed in the [organizations API](https://github.com/codeforgreenville/OpenData/blob/master/ORGANIZATIONS_API.md) if they host events on:
+This Python + Pipenv + Flask application provides an endpoint to return event data for all [organizations](https://data.openupstate.org/organizations) listed in the [organizations API](https://github.com/codeforgreenville/OpenData/blob/master/ORGANIZATIONS_API.md) if they host events on:
 * Meetup.com - [example API call](https://github.com/codeforgreenville/upstate_tech_cal_service/issues/3#issuecomment-802219986)
 * Eventbrite.com - [example API call](https://github.com/codeforgreenville/upstate_tech_cal_service/issues/4#issuecomment-802212633)
 
@@ -8,21 +8,17 @@ Meeting services currently not supported: [Facebook](https://github.com/codeforg
 
 To be added or provided updates to this list, make a comment on [one of the issues](https://github.com/codeforgreenville/upstate_tech_cal_service/issues).
 
-### Examples
+## Examples
 * [HackGreenville.com](https://hackgreenville.com/events)
 * [OpenWorks' Dashboard](https://joinopenworks.com/dashboard/meetups.php)
 
 The events from supported serivces are pulled, combined, and re-published in [JSON format](https://www.json.org/json-en.html) once an hour at https://events.openupstate.org/api/gtc  See below for additional filtering options.
 
-### Documentation
+# Contibuting to and Running the Application
 
-#### Setup
-If you're new here, then initial setup of test or production environment with Python + Pipenv + Flask app can be found in the [deploy_notes_initial.md](https://github.com/codeforgreenville/upstate_tech_cal_service/blob/master/deploy_notes_initial.md).
-Docker setup notes can be found in [deploy_notes_docker.md](https://github.com/codeforgreenville/upstate_tech_cal_service/blob/master/deploy_notes_docker.md)
+There are three ways to run the appliation (locally, locally with Docker, and web server), but please start by reading our [CONTRIBUTING.md](https://github.com/codeforgreenville/upstate_tech_cal_service/blob/master/deploy_notes_docker.md).
 
-Other [general application notes are included in the issue from before the app was migrated](https://github.com/codeforgreenville/upstate_tech_cal_service/issues/14) off Heroku onto a dedicated server.
-
-#### Interacting with a Running Application
+# Interacting with the API
 
 The exposed JSON includes past and future meetings as they are provided by the event services. The API defaults to providing only upcoming meetings, unless a `start_date` and `end_date` are specified, like https://events.openupstate.org/api/gtc?start_date=2018-01-01&end_date=2018-02-01.
 
@@ -48,6 +44,21 @@ The format of the JSON that returns is:
     "url": null, 
     "uuid": "788992ce-51f8-44e2-b300-d495303e0025", 
     "venue": null
+    "event_name": "Code For Greenville Work Night",
+    "group_name": "Code for Greenville",
+    "venue": null,
+    "url": "https://www.meetup.com/Code-for-Greenville/events/qwpbksyfchbdb/",
+    "time": "2023-05-02T22:00:00Z",
+    "tags": "1",
+    "rsvp_count": 0,
+    "created_at": "2021-05-27T02:26:52Z",
+    "description": "Come and Design, Write Copy, Hack on the Code for Greenville Projects. If you are attending for the first time, we'll have an organizer to explain the active projects. ",
+    "uuid": "9a1c536a-c0a8-4886-b327-435ec1382dd7",
+    "nid": "7",
+    "data_as_of": "2022-05-20T02:40:11Z",
+    "status": "upcoming",
+    "service_id": "qwpbksyfchbdb",
+    "service": "meetup"
     }]
 
 Note:
