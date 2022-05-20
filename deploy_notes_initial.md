@@ -95,6 +95,10 @@ These steps are intended to be run the first time a development or production co
           SSLCertificateFile /etc/letsencrypt/live/events.openupstate.org/fullchain.pem
           SSLCertificateKeyFile /etc/letsencrypt/live/events.openupstate.org/privkey.pem
           Include /etc/letsencrypt/options-ssl-apache.conf
+
+          # Enable Gzip Compression
+          AddOutputFilterByType DEFLATE application/json+ld application/json text/css text/html application/x-javascript application/javascript text/javascript
+
          </VirtualHost>
          ~~~
       2. Nginx Virtual Host Example - [modified from Boban, and not tested](https://serverfault.com/q/892944)
@@ -110,6 +114,10 @@ These steps are intended to be run the first time a development or production co
              access_log      /var/log/nginx/access.myserver.log;
              error_log       /var/log/nginx/error.myserver.log;
 
+             # Enable Gzip Compression
+             gzip on;
+             gzip_types application/json+ld application/json text/css text/html application/x-javascript application/javascript text/javascript;
+
              location /api {
                  include proxy_params;
                  proxy_pass http://unix:/var/run/cal_service.sock;
@@ -119,7 +127,7 @@ These steps are intended to be run the first time a development or production co
    1. Create a Gunicorn log file for the web server and the web server user may need permissions to write to it, `sudo touch /var/log/gunicorn.log && chown apache:apache /var/log/gunicorn.log && chmod g+w /var/log/gunicorn.log`
 
 
-Kudos To
+# Kudos
 * https://djangodeployment.com/2016/11/30/how-to-setup-apache-with-gunicorn/
 * https://github.com/nrk/predis/issues/277
 * https://axilleas.me/en/blog/2013/selinux-policy-for-nginx-and-gitlab-unix-socket-in-fedora-19/
