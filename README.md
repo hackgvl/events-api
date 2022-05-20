@@ -34,21 +34,6 @@ By default, results are returned in JSON format.  If an `Accept: application/jso
 The format of the JSON that returns is:
 
     [{
-    "created_at": "2019-03-05T13:44:52Z", 
-    "data_as_of": "2019-10-02T03:35:21Z", 
-    "description": "Bring your laptop and join us for our monthly Hack Night - drop-ins welcome!", 
-    "event_name": "WWCode Hack Night", 
-    "group_name": "Women Who Code Greenville", 
-    "nid": "40", 
-    "rsvp_count": 10, 
-    "service": "meetup", 
-    "service_id": "cqthwryccfbdc", 
-    "status": "upcoming", 
-    "tags": "1", 
-    "time": "2019-10-03T22:00:00Z", 
-    "url": null, 
-    "uuid": "788992ce-51f8-44e2-b300-d495303e0025", 
-    "venue": null
     "event_name": "Code For Greenville Work Night",
     "group_name": "Code for Greenville",
     "venue": null,
