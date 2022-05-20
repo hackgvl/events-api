@@ -103,61 +103,20 @@ You need a reference from your local copy to the `upstream` repository in additi
     ```
 </details>
 
-<details><summary>Step 3: Launching Your Local Copy / Fork of the Project</summary>
 
-# Running the Application
-There are three ways to run the appliation:
-1. On your local computer using the "Manual Mode"
-1. On your local computer using the "Docker Mode"
-1. On a server running Apache or Nginx using "Web Server Mode"
+<details><summary><b>Step 3</b> - Decide Whether to Run the Application Now, or Later</summary>
 
-## Manual Mode
+It's possible to contribute simple changes, like to README.md, without running the application. However, for many situations you will need to get the application running to view pages, see your code in action, and test changes.  
 
-These steps are for localhost / local testing of the application.
+If you want to proceed immeditely with running the client, database, and server, then follow the steps in the [**Running the Application**](#running-the-application) section, below. Then, return here and continue to the next step of this section. 
 
-1. **Prerequisite**: follow the fork and clone steps above.  
-1. **Prerequisite**: [Install Python](https://wiki.python.org/moin/BeginnersGuide/Download) 3.9, or later.
-1. **Prerequisite**: [Install Pipenv](https://pipenv.pypa.io/en/latest/#install-pipenv-today)
-	1. Verify the installation with `pipenv --version`, the output should look something like:  
-	      ```
-      		pipenv, version 2021.5.29
-      		```
-1. Run `pipenv install` to install the required Python packages. This installs dependencies listed in the project's Pipfile and creates a virtualenv for the project. 
-      1. You can verify the env has been created by checking for it at `~/.local/share/virtualenvs/`
-      1. To install a new package, you can use `pipenv install <package-name>`
-      1. To activate the subshell, use `pipenv shell`
-      1. For more help with available Pipenv commands, use `pipenv -h` 
-1. Create a local config.ini file, if one does not exist.
-	1. `cp config.ini.example-docker config.ini && nano config.ini`
-	1. Fill in the placeholder values in your `config.ini` with the real values for the following, `nano config.ini`
-		1. Register your own [Eventbrite token](https://www.eventbrite.com/support/articles/en_US/How_To/how-to-locate-your-eventbrite-api-user-key?lg=en_US)
-		1. Flask secret can be any long random string
-		1. (No longer needed) Version 3 of the Meetup.com API requires an Oauth Key. However, as of Oct 2019, we're using only public GET API endpoints that require not authentication. It's not necessary to register a Meetup.com API key unless/until the app needs access to an authenticated endpoint, at which point the key could be added to the config file
-1. Create a local logging_config.ini file
-   1. `cp logging_config.ini.example logging_config.ini`
-   1. `mkdir logs`
+</details>
 
-1. Test with gunicorn WSGI Server on a localhost port
-   1. Run the following to generate / update the `all_meetups.json` file in your application directory.
-   1. pipenv shell && python update_cal_data.py && exit
-   1. Start a "localhost" web server: `gunicorn --bind 0.0.0.0:8000 app:app`
-   1. Visit the localhost application in your web browser, and see if it works: `http://localhost:8000/api/gtc?tags=1'`
-
-## Docker Mode
-
-See [the Docker Deploy notes](https://github.com/codeforgreenville/upstate_tech_cal_service/blob/master/deploy_notes_docker.md) for more on using Docker to run the application on a local computer.
-
-## Web Server Mode
-
-See [the Deploy Notes](https://github.com/codeforgreenville/upstate_tech_cal_service/blob/master/deploy_notes_initial.md) if you're trying to run the application under Apache or Nginx on a web server.
-
-# Contributing Code
+<details><summary><b>Step 4</b> - Make Changes and Test the Code :fire:</summary>
 
 > **Note: Always follow the following steps before starting a new branch or pull request.**
 
 Contributions are made using [GitHub's Pull Request](https://docs.github.com/en/free-pro-team@latest/github/collaborating-with-issues-and-pull-requests/about-pull-requests) (aka PR) pattern.  This allows anyone to suggest changes for review, commenting, and eventual apporval / merging into the main project's repo.
-
-<details><summary>Step 1: Sync Up with the Upstream HackGreenville Repo</summary>
 
 Before creating a new git "branch" you'll want to sync up with the "remote upstream", which is just a fancy way of saying the main Events API GitHub repo.
 
@@ -211,15 +170,8 @@ Before creating a new git "branch" you'll want to sync up with the "remote upstr
     ```
 
     If you don't get any output, you are good to go to the next step.
-</details>
 
-<details><summary>Step 2: Creating and Pushing a Fresh Branch</summary>
-    
-  Working on a separate branch for each issue helps you keep your local work copy clean. You should never work on the `master` branch. This will soil your copy of the Events API and you may have to start over with a fresh clone or fork.
-    
-  All new branches / contributions should be made off of the `master` branch, but not in it, as described below.
-
-1. Clean up before starting
+4. Clean up old branch
   It's also good practice to clean up any orphaned branches from time to time.
     ```sh
     git remote prune origin
@@ -227,6 +179,10 @@ Before creating a new git "branch" you'll want to sync up with the "remote upstr
     ```
 
 2. Selecting a branch name
+  Working on a separate branch for each issue helps you keep your local work copy clean. You should never work on the `master` branch. This will soil your copy of the Events API and you may have to start over with a fresh clone or fork.
+    
+  All new branches / contributions should be made off of the `master` branch, but not in it, as described below.
+
   Check that you are on `master` as explained previously, and branch off from there by typing:
     ```sh
     git checkout -b fix/update-readme
@@ -316,7 +272,7 @@ Before creating a new git "branch" you'll want to sync up with the "remote upstr
     ```
 </details>
 
-<details><summary>Step 3: Proposing a Pull Request (PR)</summary>
+<details><summary><b>Step 5</b> - Propose a Pull Request (PR)</summary>
 
 1. Once a branch of your changes has been committed & pushed to your fork / origin you will automatically see a message when you visit your GitHub fork page.
 
@@ -336,6 +292,52 @@ The message will appear near the top of the page saying `Compare and Pull Reques
 You have successfully created a PR. Congratulations! :tada:
 </details>
 
+
+# Running the Application
+There are three ways to run the appliation:
+1. On your local computer using the "Manual Mode"
+1. On your local computer using the "Docker Mode"
+1. On a server running Apache or Nginx using "Web Server Mode"
+
+## Manual Mode
+
+These steps are for localhost / local testing of the application.
+
+1. **Prerequisite**: follow the fork and clone steps above.  
+1. **Prerequisite**: [Install Python](https://wiki.python.org/moin/BeginnersGuide/Download) 3.9, or later.
+1. **Prerequisite**: [Install Pipenv](https://pipenv.pypa.io/en/latest/#install-pipenv-today)
+	1. Verify the installation with `pipenv --version`, the output should look something like:  
+	      ```
+      		pipenv, version 2021.5.29
+      		```
+1. Run `pipenv install` to install the required Python packages. This installs dependencies listed in the project's Pipfile and creates a virtualenv for the project. 
+      1. You can verify the env has been created by checking for it at `~/.local/share/virtualenvs/`
+      1. To install a new package, you can use `pipenv install <package-name>`
+      1. To activate the subshell, use `pipenv shell`
+      1. For more help with available Pipenv commands, use `pipenv -h` 
+1. Create a local config.ini file, if one does not exist.
+	1. `cp config.ini.example-docker config.ini && nano config.ini`
+	1. Fill in the placeholder values in your `config.ini` with the real values for the following, `nano config.ini`
+		1. Register your own [Eventbrite token](https://www.eventbrite.com/support/articles/en_US/How_To/how-to-locate-your-eventbrite-api-user-key?lg=en_US)
+		1. Flask secret can be any long random string
+		1. (No longer needed) Version 3 of the Meetup.com API requires an Oauth Key. However, as of Oct 2019, we're using only public GET API endpoints that require not authentication. It's not necessary to register a Meetup.com API key unless/until the app needs access to an authenticated endpoint, at which point the key could be added to the config file
+1. Create a local logging_config.ini file
+   1. `cp logging_config.ini.example logging_config.ini`
+   1. `mkdir logs`
+
+1. Test with gunicorn WSGI Server on a localhost port
+   1. Run the following to generate / update the `all_meetups.json` file in your application directory.
+   1. pipenv shell && python update_cal_data.py && exit
+   1. Start a "localhost" web server: `gunicorn --bind 0.0.0.0:8000 app:app`
+   1. Visit the localhost application in your web browser, and see if it works: `http://localhost:8000/api/gtc?tags=1'`
+
+## Docker Mode
+
+See [the Docker Deploy notes](https://github.com/codeforgreenville/upstate_tech_cal_service/blob/master/deploy_notes_docker.md) for more on using Docker to run the application on a local computer.
+
+## Web Server Mode
+
+See [the Deploy Notes](https://github.com/codeforgreenville/upstate_tech_cal_service/blob/master/deploy_notes_initial.md) if you're trying to run the application under Apache or Nginx on a web server.
 
 # Frequently Asked Questions
 
