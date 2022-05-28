@@ -110,7 +110,7 @@ def format_json_ld(events_json):
                 "tags": event.get('tags'), 
                 "startDate": event.get('time'), 
                 "url": event.get('url'), 
-                "identifier": f"urn:uuid:{event.get('uuid')}", 
+                "identifier": event.get('uuid'), 
                 "location": location
                 }
             }
