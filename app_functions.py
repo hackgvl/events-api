@@ -95,11 +95,17 @@ def format_json_ld(events_json):
                 }
             eventAttendanceMode = "https://schema.org/OfflineEventAttendanceMode"
         
+        if event['status'] == 'upcoming' or event['status'] == 'past':
+            eventStatus = "https://schema.org/EventScheduled"
+        elif event['status'] == 'cancelled':
+            eventStatus = "https://schema.org/EventCancelled"
+        
         element = {
             "@type": "DataFeedItem",
             "dateCreated": event.get("created_at"), 
             "dateModified": event.get('data_as_of'),
             "eventAttendanceMode": eventAttendanceMode,
+            "eventStatus": eventStatus,
             "item": {
                 "@type": "Event",
                 "description": event.get('description'), 
