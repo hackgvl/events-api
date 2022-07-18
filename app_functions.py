@@ -75,6 +75,7 @@ def format_json_ld(events_json):
                 "@type": "VirtualLocation",
                 "url": event.get('url')
             }
+            eventAttendanceMode = "https://schema.org/OnlineEventAttendanceMode"
         else:
             location = {
                 "@type": "Place",
@@ -92,11 +93,13 @@ def format_json_ld(events_json):
                     "longitude": event.get('venue').get('lon'),
                     }
                 }
-            
+            eventAttendanceMode = "https://schema.org/OfflineEventAttendanceMode"
+        
         element = {
             "@type": "DataFeedItem",
             "dateCreated": event.get("created_at"), 
             "dateModified": event.get('data_as_of'),
+            "eventAttendanceMode": eventAttendanceMode,
             "item": {
                 "@type": "Event",
                 "description": event.get('description'), 
