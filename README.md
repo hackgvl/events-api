@@ -36,6 +36,7 @@ The format of the JSON that returns is:
     [{
     "event_name": "Code For Greenville Work Night",
     "group_name": "Code for Greenville",
+    "group_url": 'https://codeforgreenville.org',
     "venue": null,
     "url": "https://www.meetup.com/Code-for-Greenville/events/qwpbksyfchbdb/",
     "time": "2023-05-02T22:00:00Z",
