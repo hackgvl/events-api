@@ -112,7 +112,8 @@ def format_json_ld(events_json):
                 "name": event.get('event_name'), 
                 "organizer": {
                     "@type": "Organization",
-                    "name": event.get('group_name')
+                    "name": event.get('group_name'),
+                    "url": event.get('group_url'),
                         }, 
                 "nid": event.get('nid'),
                 "rsvp_count": event.get('rsvp_count'),
