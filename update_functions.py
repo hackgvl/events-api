@@ -92,6 +92,7 @@ def format_meetup_events(events_raw, group_list):
             event_dict = {
                 'event_name': event.get('name'),
                 'group_name': event.get('group').get('name'),
+                'group_url': group_item.get('field_homepage'),
                 'venue': venue,
                 'url': event.get('link'),
                 # note: time is converted from unix timestamp to ISO 8601 timestamp.
