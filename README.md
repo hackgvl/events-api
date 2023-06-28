@@ -1,4 +1,7 @@
 # Upstate / Greenville, SC Tech Organization Events API Service
+<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
+<!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 This Python + Pipenv + Flask application provides an endpoint to return event data for all [organizations](https://data.openupstate.org/organizations) listed in the [organizations API](https://github.com/hackgvl/OpenData/blob/master/ORGANIZATIONS_API.md) if they host events on:
 
@@ -56,3 +59,25 @@ Note:
 * Kudos to @Nunie123 for the initial development
 * All timestamps are in UTC.  
 * The event description fields may include HTML markup.  This application does not sanitize those fields and it's unclear if the upstream source should be trusted, so sanitize any output to avoid malicious XSS.
+
+## Contributors ✨
+
+Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
+
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
+<table>
+  <tbody>
+    <tr>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/Nunie123"><img src="https://avatars.githubusercontent.com/u/15092236?v=4?s=100" width="100px;" alt="Ed Nunes"/><br /><sub><b>Ed Nunes</b></sub></a><br /><a href="#ideas-Nunie123" title="Ideas, Planning, & Feedback">🤔</a> <a href="https://github.com/hackgvl/events-api/commits?author=Nunie123" title="Code">💻</a></td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- markdownlint-restore -->
+<!-- prettier-ignore-end -->
+
+<!-- ALL-CONTRIBUTORS-LIST:END -->
+
+This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
