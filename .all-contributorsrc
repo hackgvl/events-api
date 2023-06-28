@@ -67,6 +67,16 @@
         "ideas",
         "platform"
       ]
+    },
+    {
+      "login": "BigBlueHat",
+      "name": "BigBlueHat",
+      "avatar_url": "https://avatars.githubusercontent.com/u/43209?v=4",
+      "profile": "https://bigbluehat.com/",
+      "contributions": [
+        "ideas",
+        "question"
+      ]
     }
   ],
   "contributorsPerLine": 7,
