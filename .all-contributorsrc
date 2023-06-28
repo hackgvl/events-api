@@ -77,6 +77,15 @@
         "ideas",
         "question"
       ]
+    },
+    {
+      "login": "jeremywight",
+      "name": "Jeremy Wight",
+      "avatar_url": "https://avatars.githubusercontent.com/u/8245600?v=4",
+      "profile": "https://www.linkedin.com/in/jeremywight/",
+      "contributions": [
+        "bug"
+      ]
     }
   ],
   "contributorsPerLine": 7,
