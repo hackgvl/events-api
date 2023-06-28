@@ -1,0 +1,29 @@
+{
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "commitType": "docs",
+  "commitConvention": "angular",
+  "contributors": [
+    {
+      "login": "ramonaspence",
+      "name": "Ramona",
+      "avatar_url": "https://avatars.githubusercontent.com/u/52936858?v=4",
+      "profile": "http://www.linkedin.com/in/ramona-spence",
+      "contributions": [
+        "code",
+        "ideas",
+        "doc",
+        "bug"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "skipCi": true,
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "projectName": "events-api",
+  "projectOwner": "hackgvl"
+}
