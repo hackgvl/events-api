@@ -44,6 +44,16 @@
         "doc",
         "bug"
       ]
+    },
+    {
+      "login": "bcsnipes",
+      "name": "Brett Snipes",
+      "avatar_url": "https://avatars.githubusercontent.com/u/43290072?v=4",
+      "profile": "https://github.com/bcsnipes",
+      "contributions": [
+        "code",
+        "bug"
+      ]
     }
   ],
   "contributorsPerLine": 7,
