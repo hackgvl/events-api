@@ -1,6 +1,6 @@
 # Upstate / Greenville, SC Tech Organization Events API Service
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 This Python + Pipenv + Flask application provides an endpoint to return event data for all [organizations](https://data.openupstate.org/organizations) listed in the [organizations API](https://github.com/hackgvl/OpenData/blob/master/ORGANIZATIONS_API.md) if they host events on:
@@ -71,6 +71,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
   <tbody>
     <tr>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/Nunie123"><img src="https://avatars.githubusercontent.com/u/15092236?v=4?s=100" width="100px;" alt="Ed Nunes"/><br /><sub><b>Ed Nunes</b></sub></a><br /><a href="#ideas-Nunie123" title="Ideas, Planning, & Feedback">🤔</a> <a href="https://github.com/hackgvl/events-api/commits?author=Nunie123" title="Code">💻</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/allella"><img src="https://avatars.githubusercontent.com/u/1777776?v=4?s=100" width="100px;" alt="Jim Ciallella"/><br /><sub><b>Jim Ciallella</b></sub></a><br /><a href="https://github.com/hackgvl/events-api/commits?author=allella" title="Code">💻</a> <a href="#maintenance-allella" title="Maintenance">🚧</a> <a href="#infra-allella" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a> <a href="#projectManagement-allella" title="Project Management">📆</a> <a href="https://github.com/hackgvl/events-api/pulls?q=is%3Apr+reviewed-by%3Aallella" title="Reviewed Pull Requests">👀</a> <a href="https://github.com/hackgvl/events-api/issues?q=author%3Aallella" title="Bug reports">🐛</a> <a href="https://github.com/hackgvl/events-api/commits?author=allella" title="Documentation">📖</a> <a href="#question-allella" title="Answering Questions">💬</a></td>
     </tr>
   </tbody>
 </table>
