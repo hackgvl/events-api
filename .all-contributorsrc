@@ -1,0 +1,27 @@
+{
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "commitType": "docs",
+  "commitConvention": "angular",
+  "contributors": [
+    {
+      "login": "Nunie123",
+      "name": "Ed Nunes",
+      "avatar_url": "https://avatars.githubusercontent.com/u/15092236?v=4",
+      "profile": "https://github.com/Nunie123",
+      "contributions": [
+        "ideas",
+        "code"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "skipCi": true,
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "projectName": "events-api",
+  "projectOwner": "hackgvl"
+}
