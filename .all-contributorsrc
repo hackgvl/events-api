@@ -8,6 +8,32 @@
   "commitConvention": "angular",
   "contributors": [
     {
+      "login": "Nunie123",
+      "name": "Ed Nunes",
+      "avatar_url": "https://avatars.githubusercontent.com/u/15092236?v=4",
+      "profile": "https://github.com/Nunie123",
+      "contributions": [
+        "ideas",
+        "code"
+      ]
+    },
+    {
+      "login": "allella",
+      "name": "Jim Ciallella",
+      "avatar_url": "https://avatars.githubusercontent.com/u/1777776?v=4",
+      "profile": "https://github.com/allella",
+      "contributions": [
+        "code",
+        "maintenance",
+        "infra",
+        "projectManagement",
+        "review",
+        "bug",
+        "doc",
+        "question"
+      ]
+    },
+    {
       "login": "ramonaspence",
       "name": "Ramona",
       "avatar_url": "https://avatars.githubusercontent.com/u/52936858?v=4",
