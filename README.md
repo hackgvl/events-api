@@ -1,6 +1,6 @@
 # Upstate / Greenville, SC Tech Organization Events API Service
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-5-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-6-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 This Python + Pipenv + Flask application provides an endpoint to return event data for all [organizations](https://data.openupstate.org/organizations) listed in the [organizations API](https://github.com/hackgvl/OpenData/blob/master/ORGANIZATIONS_API.md) if they host events on:
@@ -75,6 +75,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
       <td align="center" valign="top" width="14.28%"><a href="http://www.linkedin.com/in/ramona-spence"><img src="https://avatars.githubusercontent.com/u/52936858?v=4?s=100" width="100px;" alt="Ramona"/><br /><sub><b>Ramona</b></sub></a><br /><a href="https://github.com/hackgvl/events-api/commits?author=ramonaspence" title="Code">💻</a> <a href="#ideas-ramonaspence" title="Ideas, Planning, & Feedback">🤔</a> <a href="https://github.com/hackgvl/events-api/commits?author=ramonaspence" title="Documentation">📖</a> <a href="https://github.com/hackgvl/events-api/issues?q=author%3Aramonaspence" title="Bug reports">🐛</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/bcsnipes"><img src="https://avatars.githubusercontent.com/u/43290072?v=4?s=100" width="100px;" alt="Brett Snipes"/><br /><sub><b>Brett Snipes</b></sub></a><br /><a href="https://github.com/hackgvl/events-api/commits?author=bcsnipes" title="Code">💻</a> <a href="https://github.com/hackgvl/events-api/issues?q=author%3Abcsnipes" title="Bug reports">🐛</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://olivia.sculley.dev"><img src="https://avatars.githubusercontent.com/u/88074048?v=4?s=100" width="100px;" alt="Olivia Sculley"/><br /><sub><b>Olivia Sculley</b></sub></a><br /><a href="https://github.com/hackgvl/events-api/commits?author=oliviasculley" title="Code">💻</a> <a href="#infra-oliviasculley" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a> <a href="https://github.com/hackgvl/events-api/commits?author=oliviasculley" title="Documentation">📖</a> <a href="#ideas-oliviasculley" title="Ideas, Planning, & Feedback">🤔</a> <a href="#platform-oliviasculley" title="Packaging/porting to new platform">📦</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://bigbluehat.com/"><img src="https://avatars.githubusercontent.com/u/43209?v=4?s=100" width="100px;" alt="BigBlueHat"/><br /><sub><b>BigBlueHat</b></sub></a><br /><a href="#ideas-BigBlueHat" title="Ideas, Planning, & Feedback">🤔</a> <a href="#question-BigBlueHat" title="Answering Questions">💬</a></td>
     </tr>
   </tbody>
 </table>
