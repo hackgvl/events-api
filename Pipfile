@@ -7,11 +7,12 @@ name = "pypi"
 gunicorn = "*"
 flask = "*"
 simplejson = "*"
-requests = "*"
+requests = "<2.31.0"
 python-crontab = "*"
 pytz = "*"
 flask-cors = "*"
 flask-restful = "*"
+urllib3 ="<2"
 
 [requires]
 python_version = "3.9"
