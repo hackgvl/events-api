@@ -14,7 +14,6 @@ flask-cors = "*"
 flask-restful = "*"
 urllib3 ="<2"
 
-
 [requires]
 python_version = "3.9"
 
