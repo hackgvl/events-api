@@ -1,30 +1,40 @@
-# Upstate / Greenville, SC Tech Organization Events API Service
+# This Project is Archived with a Replacement
+
+**This project is no longer used or developed by HackGreenville Labs.**
+
+However, an replacement [Events API](https://github.com/hackgvl/hackgreenville-com/blob/develop/EVENTS_API.md) has been integrated into our [HackGreenville.com application](https://github.com/hackgvl/hackgreenville-com).
+
+## Kudos to Past Contributors
+* Thanks to @Nunie123 for the initial development, and to @ramona-spence for sustaining the [previous Python implementation](https://github.com/hackgvl/events-api).
+* Thanks to @bogdankharchenko and [HackGreenville Labs](https://hackgreenville.com/labs) for migrating the Python implementation to [PHP / Laravel](https://github.com/hackgvl/hackgreenville-com/blob/develop/EVENTS_API.md)
+
+## Upstate / Greenville, SC Tech Organization Events API Service
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
 [![All Contributors](https://img.shields.io/badge/all_contributors-8-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
-This Python + Pipenv + Flask application provides an endpoint to return event data for all [organizations](https://data.openupstate.org/organizations) listed in the [organizations API](https://github.com/hackgvl/OpenData/blob/master/ORGANIZATIONS_API.md) if they host events on:
+This Python + Pipenv + Flask application previously provided an endpoint to return event data for all [organizations](https://data.openupstate.org/organizations) listed in the [organizations API](https://github.com/hackgvl/OpenData/blob/master/ORGANIZATIONS_API.md) if they host events on:
 
 * Meetup.com - [example API call](https://github.com/hackgvl/events-api/issues/3#issuecomment-802219986)
 * Eventbrite.com - [example API call](https://github.com/hackgvl/events-api/issues/4#issuecomment-802212633)
 
 Meeting services currently not supported: [Facebook](https://github.com/hackgvl/events-api/issues/5), [Nvite](https://github.com/hackgvl/events-api/issues/6), [Open Collective](https://github.com/hackgvl/events-api/issues/2), and [custom websites](https://github.com/hackgvl/events-api/issues/7).
 
-If your organization is not included, then connect with us by commenting on [one of the issues](https://github.com/hackgvl/events-api/issues).
-
-## Examples Applications
+## Examples of Previous Consuming Applications
 
 * [HackGreenville.com](https://hackgreenville.com/events)
 * [OpenWorks' Dashboard](https://joinopenworks.com/dashboard/meetups.php)
 
-The events listed on supported evebt services are pulled, combined, and re-published in [JSON format](https://www.json.org/json-en.html) or [JSON+LD](https://json-ld.org/) every hour at our [Events API](https://events.openupstate.org/api/gtc) endpoint.  Additional filtering options are described below.
+The events listed on supported event services are pulled, combined, and re-published in [JSON format](https://www.json.org/json-en.html) or [JSON+LD](https://json-ld.org/) every hour at our [Events API](https://events.openupstate.org/api/gtc) endpoint.  Additional filtering options are described below.
 
 # Contributing to and Running the Application
 
-There are three ways to run the appliation (locally, locally with Docker, and web server), but start by reading our [CONTRIBUTING.md](https://github.com/hackgvl/events-api/blob/master/deploy_notes_docker.md).
+This project has been replaced, so join us at [Events API](https://github.com/hackgvl/hackgreenville-com/blob/develop/EVENTS_API.md) for get involved in the PHP / Laravel implementation.
+
+There were three ways to run the appliation (locally, locally with Docker, and web server), but start by reading our [CONTRIBUTING.md](https://github.com/hackgvl/events-api/blob/master/deploy_notes_docker.md).
 
 # Interacting with the API
-By default, results are returned in JSON format.  If an `Accept: application/json+ld` header is sent to the API, then it will reply with [Schema.org Event markup](https://schema.org/Event) in JSON+LD format.
+By default, results were returned in JSON format.  If an `Accept: application/json+ld` header is sent to the API, then it will reply with [Schema.org Event markup](https://schema.org/Event) in JSON+LD format.
 
 * [Get all upcoming events](https://events.openupstate.org/api/gtc) by calling _/api/gtc_
 * [Get events within a date range](https://events.openupstate.org/api/gtc?start_date=2018-01-01&end_date=2018-02-01) by calling _/api/gtc?start__date=2018-01-01&end__date=2018-02-01_
@@ -55,8 +65,11 @@ The format of the JSON that returns is:
     "service": "meetup"
     }]
 
-Note:
-* Kudos to @Nunie123 for the initial development
+## Kudos to Past Contributors
+* Thanks to @Nunie123 for the initial development, and to @ramona-spence for sustaining the [previous Python implementation](https://github.com/hackgvl/events-api).
+* Thanks to @bogdankharchenko for migrating the Python implementation to PHP / Laravel
+
+## Notes
 * All timestamps are in UTC.  
 * The event description fields may include HTML markup.  This application does not sanitize those fields and it's unclear if the upstream source should be trusted, so sanitize any output to avoid malicious XSS.
 
